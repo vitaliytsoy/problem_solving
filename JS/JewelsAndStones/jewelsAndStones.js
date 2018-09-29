@@ -15,7 +15,7 @@ sensitive, so "a" is considered a different type of stone from "A".
 const J = "aAs";
 const S = "aAAbbbb"
 
-function romanToDec(J, S){
+function jewelsAndStones(J, S){
     let counter = 0;
     for(let letter of J) {
         if (S.match(new RegExp(letter,'g'))) {
@@ -24,5 +24,5 @@ function romanToDec(J, S){
     }
 return counter;
 }
-  romanToDec(J, S);
+jewelsAndStones(J, S);
   
