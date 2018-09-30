@@ -23,19 +23,25 @@ function decToBin(number) {
 let hammingDistance = (x, y) => {
     let xBin = decToBin(x);
     let yBin = decToBin(y);
+    let addZerosToX = xBin.length >= yBin.length ? false : true;
+    const zerosToAdd = Math.max(yBin.length, xBin.length) - Math.min(yBin.length, xBin.length);
+    if (addZerosToX) {
+        xBin = '0'.repeat(zerosToAdd) + xBin;
+    } else {
+        yBin = '0'.repeat(zerosToAdd) + yBin;        
+    }
     let counter = 0;
     let distance = 0;
-    while (counter <= Math.max(yBin.length, xBin.length)) {
+    while (counter <= xBin.length) {
+        if (yBin.charAt(counter - 1) !== xBin.charAt(counter - 1)) {
+            distance++;
+        }
         counter++;
     }
+    console.log(distance);
     return distance;
-    if (yBin.charAt(13)) {
-        console.log("YAYA");
-    } else {
-        console.log("NONO");
-    }
 }
-hammingDistance(1, 4);
+hammingDistance(4, 14);
 
 
 
