@@ -13,7 +13,18 @@ Then, invert the image: [[1,0,0],[0,1,0],[1,1,1]]
 */
 let flippingAnImage = (A) => {
     return A.map(function (item) {
-        return item.reverse();
+        for(let i = 0; i<item.length; i++) {
+            let middle;
+            if (item.length - i - 1 - Math.ceil(item.length / 2) >= 0) {
+                middle = item[i];
+                item[i] = item[item.length - i - 1];
+                item[item.length - i - 1] = middle;
+            }
+            else {
+                break;
+            }
+        }
+        return item;
     }).map(function (item) {
         item = item.map(function(inner_item) {
             return inner_item ? 0 : 1;
