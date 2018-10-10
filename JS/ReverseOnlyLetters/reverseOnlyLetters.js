@@ -10,10 +10,30 @@ Output: "Qedo1ct-eeLg=ntse-T!"
 */
 
 let reverseOnlyLetters = (strToReverse) => {
-    let splittedString = strToReverse.match(new RegExp('([^\\d\\W]+|[\\d\\W])', 'g')).reverse
-    splittedString.forEach(element => {
-        if(elemtn)
-        console.log(element);
+    if(strToReverse.length <= 0) {
+        return '';
+    }
+    let splittedString = strToReverse.match(new RegExp('([^(?!_)\\d\\W]+|[\\d\\W_])', 'g'));
+    let onlyLetters = strToReverse.match(new RegExp('(?!_)[^\\d\\W]', 'g'));
+                                    // .join('').split('').reverse();
+    if(onlyLetters) {
+        onlyLetters = onlyLetters.join('').split('').reverse();
+    }
+
+    let reversedString = [];
+    splittedString.forEach(item => {
+        if(item.length > 1) {
+            reversedString.push(onlyLetters.slice(0, item.length).join(''));
+            onlyLetters.splice(0, item.length)
+        } else { 
+            if(RegExp('[a-zA-Z]', 'g').test(item)) {
+                reversedString.push(onlyLetters.slice(0, 1).join(''));
+                onlyLetters.splice(0, 1);
+            } else {
+                reversedString.push(item);
+            }
+        }
     });
+    return reversedString.join('');
 }
-reverseOnlyLetters('Test1ng-Leet=code-Q!');
+reverseOnlyLetters("5b6y_e");
