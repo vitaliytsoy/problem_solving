@@ -15,7 +15,6 @@ let reverseOnlyLetters = (strToReverse) => {
     }
     let splittedString = strToReverse.match(new RegExp('([^(?!_)\\d\\W]+|[\\d\\W_])', 'g'));
     let onlyLetters = strToReverse.match(new RegExp('(?!_)[^\\d\\W]', 'g'));
-                                    // .join('').split('').reverse();
     if(onlyLetters) {
         onlyLetters = onlyLetters.join('').split('').reverse();
     }
