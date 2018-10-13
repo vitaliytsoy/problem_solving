@@ -20,20 +20,30 @@ Explanation: "mee" matches the pattern because there is a permutation {a -> m, b
 since a and b map to the same letter.
 */
 
+let findUnifiedPattern = (word) => {
+    let dictionary = {}
+    let unifiedPattern = [];
+    let patternCounter = 0;
+    for(let letter of word) {
+        if (!dictionary.hasOwnProperty(letter)) {
+            dictionary[letter] = patternCounter;
+            patternCounter++;
+            unifiedPattern.push(dictionary[letter]);
+        } else {
+            unifiedPattern.push(dictionary[letter]);
+        }
+    }
+    return unifiedPattern.join('');
+}
+
 let findAndReplacePattern = (words, pattern) => {
-    words = words.filter((word) => {
-        let dictionary = {};
-        if (word.length != pattern.length) return false;
-        for(let i = 0; i < pattern.length; i++) {
-            if (dictionary.hasOwnProperty(pattern[i])) {
-                if (dictionary[pattern[i]] != word[i]) return false;
-            } else {
-                dictionary[pattern[i]] = word[i];
-                dictionary[word[i]] = pattern[i];
-            }
-        } 
-        return true;
+    let unifiedPattern = findUnifiedPattern(pattern);
+    return words.filter(word => {
+        let wordPattern = findUnifiedPattern(word);
+        if (unifiedPattern === wordPattern) {
+            return true;
+        }
+        return false;
     });
-    console.log(words);
 }
 findAndReplacePattern(["abc","deq","mee","aqq","dkd","ccc"], "abb");
