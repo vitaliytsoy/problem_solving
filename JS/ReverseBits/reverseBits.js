@@ -10,6 +10,5 @@ function reverseBits(n){
     }
     return parseInt(n.split('').reverse().join(''), 2);
 }
-let answer = reverseBits(43261596);
-console.log(answer);
+reverseBits(43261596);
   
