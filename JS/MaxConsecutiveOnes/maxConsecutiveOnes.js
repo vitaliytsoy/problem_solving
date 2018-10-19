@@ -14,5 +14,5 @@ let findMaxConsecutiveOnes = (nums) => {
         return prev < current.length ? current.length : prev;
     }, 1);
 }
-findMaxConsecutiveOnes([1,1,1,1,1,1,1,1,1,1,10,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0]);
+findMaxConsecutiveOnes([1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0]);
 
