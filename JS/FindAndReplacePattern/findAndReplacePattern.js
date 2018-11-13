@@ -37,13 +37,14 @@ let findUnifiedPattern = (word) => {
 }
 
 let findAndReplacePattern = (words, pattern) => {
-    let unifiedPattern = findUnifiedPattern(pattern);
+    const unifiedPattern = findUnifiedPattern(pattern);
+    let wordPattern;
     return words.filter(word => {
-        let wordPattern = findUnifiedPattern(word);
+        wordPattern = findUnifiedPattern(word);
         if (unifiedPattern === wordPattern) {
             return true;
         }
         return false;
     });
 }
-findAndReplacePattern(["abc","deq","mee","aqq","dkd","ccc"], "abb");
+console.log(findAndReplacePattern(["abc","deq","mee","aqq","dkd","ccc"], "abb"));

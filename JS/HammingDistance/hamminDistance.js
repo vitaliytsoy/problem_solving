@@ -38,7 +38,6 @@ let hammingDistance = (x, y) => {
         }
         counter++;
     }
-    console.log(distance);
     return distance;
 }
 hammingDistance(4, 14);
