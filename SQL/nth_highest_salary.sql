@@ -18,11 +18,12 @@
 
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
-  RETURN (
-        SELECT Salary
+    SET N = N - 1;
+    RETURN (
+    SELECT Salary
         FROM Employee
         GROUP BY Salary
         ORDER BY Salary DESC
         LIMIT 1 OFFSET N
-  );
+    );
 END
