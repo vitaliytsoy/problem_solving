@@ -35,6 +35,3 @@ class Solution:
 solution = Solution()
 
 solution.groupAnagrams(["eat","tea","tan","ate","nat","bat"])
-
-# 2 + 4 = 6
-# 3 + 3 = 6

@@ -26,9 +26,14 @@ class Solution:
             result += str(num % 7)
             num = int(num / 7)
 
-        return result
+        return result[::-1]
 
 
 solution = Solution()
 print(solution.convertToBase7(100))
+
+
+
+
+
 

@@ -29,13 +29,10 @@ class Solution:
         dict = {}
 
         for index, num in enumerate(nums):
-            if num >= target: 
-                continue
-
             if num in dict.keys():
                 second_index = dict.get(num)
 
-                return [index, second_index]
+                return [second_index, index]
 
             dict[target - num] = index
 
@@ -49,4 +46,5 @@ class Solution:
 
 solution = Solution()
 
-solution.twoSum([2,4,5], 9);
+print(solution.twoSum([0,4,3,0], 0))
+print(solution.twoSum([-3,4,3,90], 0))
