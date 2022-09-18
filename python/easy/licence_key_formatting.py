@@ -22,7 +22,7 @@ Explanation: The string s has been split into three parts, each part has 2 chara
 """
 class Solution:
     def licenseKeyFormatting(self, s: str, k: int) -> str:
-        normalized_key = s[::-1].replace('-', '')
+        normalized_key = s[::-1].replace('-', '').upper()
         result = '';
 
         for index, letter in enumerate(normalized_key, 0):
@@ -31,12 +31,11 @@ class Solution:
             else:
                 result += letter
 
-        print(s)
-
-        return result
+        return result[::-1]
 
 # print('1,2,3,4'.replace(',', ''))
 
 
 solution = Solution();
 print(solution.licenseKeyFormatting('2-5g-3-J', 2))
+print(solution.licenseKeyFormatting('5F3Z-2e-9-w', 4))

@@ -31,9 +31,3 @@ class Solution:
 
 solution = Solution()
 print(solution.convertToBase7(100))
-
-
-
-
-
-
