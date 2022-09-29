@@ -36,3 +36,17 @@ class Solution:
         return False
 
 
+    def has_cycle(self, head: Optional[ListNode]) -> bool:
+        if head == None or head.next == None:
+            return False
+
+        unique = set()
+        pointer = head
+
+        while pointer.next != None:
+            if pointer in unique:
+                return True
+
+            unique.add(pointer)
+
+        return False
