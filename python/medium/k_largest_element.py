@@ -24,12 +24,8 @@ class Solution:
             if num < pivot:
                 right.append(num)
             elif num > pivot:
-                # if num in left:
-                    # continue
                 left.append(num)
             else:
-                # if num in mid:
-                    # continue
                 mid.append(num)
 
         if len(left) >= k: 
