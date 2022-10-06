@@ -27,30 +27,79 @@ medianFinder.addNum(3);    // arr[1, 2, 3]
 medianFinder.findMedian(); // return 2.0
 """
 from math import floor
+from heapq import heapify, heappush, heappop
 import sortedcontainers
 
 class MedianFinder:
     def __init__(self):
-        self.container = sortedcontainers.SortedList();
+        self.min_pq = []
+        self.max_pq = []
 
     def addNum(self, num: int) -> None:
-        self.container.add(num)
+        heappush(self.max_pq, -num)
+        heappush(self.min_pq, -heappop(self.max_pq))
+
+        if len(self.min_pq) > len(self.max_pq):
+            heappush(self.max_pq, -heappop(self.min_pq))
+            
 
     def findMedian(self) -> float:
-        l = len(self.container)
+        l_min = len(self.min_pq)
+        l_max = len(self.max_pq)
 
-        if l % 2 == 0:
-            middle_index = int(len(self.container) / 2)
+        if l_max > l_min:
+            return -self.max_pq[0]
 
-            return (self.container[middle_index] + self.container[middle_index - 1]) / 2
+        if l_max < l_min:
+            return self.min_pq[0]
 
-        return self.container[floor(len(self.container) // 2)]
+        return (-self.max_pq[0] + self.min_pq[0]) / 2
+
+
+# class MedianFinder:
+#     def __init__(self):
+#         self.container = sortedcontainers.SortedList();
+
+#     def addNum(self, num: int) -> None:
+#         self.container.add(num)
+
+#     def findMedian(self) -> float:
+#         l = len(self.container)
+
+#         if l % 2 == 0:
+#             middle_index = int(len(self.container) / 2)
+
+#             return (self.container[middle_index] + self.container[middle_index - 1]) / 2
+
+#         return self.container[floor(len(self.container) // 2)]
 
 
 obj = MedianFinder()
 obj.addNum(1)
+print('Median', obj.findMedian())
 obj.addNum(2)
 print('Median', obj.findMedian())
 obj.addNum(3)
 print('Median', obj.findMedian())
+obj.addNum(4)
+print('Median', obj.findMedian())
+obj.addNum(5)
+print('Median', obj.findMedian())
 
+
+
+# obj.addNum(-1)
+# print('Median', obj.findMedian())
+# obj.addNum(-2)
+# print('Median', obj.findMedian())
+# obj.addNum(-3)
+# print('Median', obj.findMedian())
+# obj.addNum(-4)
+# print('Median', obj.findMedian())
+# obj.addNum(-5)
+# print('Median', obj.findMedian())
+# -1.00000
+# -1.50000
+# -2.00000
+# -2.50000
+# -3.00000
