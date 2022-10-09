@@ -27,7 +27,7 @@ medianFinder.addNum(3);    // arr[1, 2, 3]
 medianFinder.findMedian(); // return 2.0
 """
 from math import floor
-from heapq import heapify, heappush, heappop
+from heapq import heappush, heappop
 import sortedcontainers
 
 class MedianFinder:
@@ -42,7 +42,6 @@ class MedianFinder:
         if len(self.min_pq) > len(self.max_pq):
             heappush(self.max_pq, -heappop(self.min_pq))
             
-
     def findMedian(self) -> float:
         l_min = len(self.min_pq)
         l_max = len(self.max_pq)
