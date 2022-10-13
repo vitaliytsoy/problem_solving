@@ -30,7 +30,6 @@ The parsed integer is 42.
 Since 42 is in the range [-231, 231 - 1], the final result is 42.
 """
 import re
-from unittest import result
 
 class Solution:
     def myAtoi(self, s: str) -> int:
@@ -74,6 +73,47 @@ class Solution:
 
         return sign * result
 
+    def my_atoi(self, s: str) -> int:
+        MIN_SIZE = - 2 ** 31
+        MAX_SIZE = (-MIN_SIZE) - 1
+        filtered_string = ''
+        result = 0
+        sign = 0
+        pointer = 0
+
+        for index in range(0, len(s)):
+            if s[index] != " ":
+                break
+
+            pointer += 1
+
+        if pointer >= len(s):
+            return 0;
+
+        if s[pointer] == "+" or s[pointer] == "-":
+            sign = 1 if s[pointer] == "+" else -1
+            pointer += 1
+
+        for index in range(pointer, len(s)):
+            char = s[index]
+
+            if re.match(r"[^0-9]", char):
+                break
+
+            filtered_string += char
+
+
+        for i in range(1, len(filtered_string) + 1):
+            result += int(filtered_string[-i]) * (10**(i-1))
+
+            if sign == 0:
+                sign = 1
+
+            if (result >= MAX_SIZE + 1):
+                return MAX_SIZE if sign == 1 else MIN_SIZE 
+
+        return sign * result
+
 solution = Solution()
 # print(solution.myAtoi("42"))
 # print(solution.myAtoi("   -42"))
@@ -87,3 +127,16 @@ solution = Solution()
 # print(solution.myAtoi("2147483648"))
 print(solution.myAtoi("  +  413"))
 
+
+# print(solution.my_atoi("42"))
+# print(solution.my_atoi("   -42"))
+# print(solution.my_atoi("4193 with 123 words"))
+# print(solution.my_atoi("9999999999"))
+# print(solution.my_atoi("+-123"))
+# print(solution.my_atoi("21474836460"))
+# print(solution.my_atoi("  0000000000012345678"))
+# print(solution.my_atoi("00000-42a1234"))
+# print(solution.my_atoi("   +0 123"))
+# print(solution.my_atoi("2147483648"))
+# print(solution.my_atoi("  +  413"))
+print(solution.my_atoi(" "))
