@@ -97,7 +97,6 @@ class Solution:
             for (i, n) in enumerate(group):
                 modifyer = '';
 
-                print(result)
                 
                 if skip:
                     skip = False;
@@ -114,7 +113,7 @@ class Solution:
                     if index == 3:
                         modifyer = self.sizes[9]
 
-                    result = modifyer + ' ' + result
+                    result = modifyer + ('' if  result == '' else ' ') + result
 
                 if n == 0:
                     continue
@@ -124,28 +123,18 @@ class Solution:
                     s = group[0] + group[1] * 10
 
                     if s >= 11 and s <= 19:
-                        result = self.makeNthDigit(s, 10 ** i) + ' ' + result
+                        result = self.makeNthDigit(s, 10 ** i) + ('' if (i == 0 and index == 0) or result == '' else ' ') + result
                         skip = True
 
                         continue;
 
-                result = self.makeNthDigit(n, 10 ** i) + ' ' + result
+                result = self.makeNthDigit(n, 10 ** i) + ('' if (i == 0 and index == 0) or result == '' else ' ') + result
 
-
-            # print(index)
-            print(group)
-            
-
-        # print(result)
-        print(groups)
-        # print(str(num))
         return result
 
 
 s = Solution()
-# s.makeNthDigit(5, 1)
-print(s.numberToWords(1000000))
-print(sum([1,2,3]))
+print(s.numberToWords(10))
 # s.numberToWords(12345)
 # s.numberToWords(11234567)
 
