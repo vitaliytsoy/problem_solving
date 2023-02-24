@@ -97,7 +97,6 @@ class Solution:
             for (i, n) in enumerate(group):
                 modifyer = '';
 
-                
                 if skip:
                     skip = False;
 
@@ -137,5 +136,3 @@ s = Solution()
 print(s.numberToWords(10))
 # s.numberToWords(12345)
 # s.numberToWords(11234567)
-
-        
