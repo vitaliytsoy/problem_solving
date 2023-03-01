@@ -29,13 +29,17 @@ from typing import List
 
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        for index, num in enumerate(nums):
-            if num != val:
-                continue
+        switch_pointer = 0
 
-            nums[index] = None
+        for index in range(len(nums)):
+            if nums[index] != val:
+                nums[switch_pointer], nums[index] = nums[index], nums[switch_pointer]
+                switch_pointer += 1
 
-        # return sorted(nums)
+        return switch_pointer
+
+
+
 
 
 s = Solution()

@@ -34,12 +34,6 @@ class Solution:
             pointer += 1
             
 
-        print(nums)
-        
-
-
-
-
 s = Solution()
 s.moveZeroes([1,0,3,4,0,12, 3, 5])
 

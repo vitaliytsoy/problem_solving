@@ -9,9 +9,6 @@ class Solution:
         while start < end:
             skip = False
 
-            print(start)
-            print(end)
-
             if (letters[start] not in self.vowels):
                 start += 1
                 skip = True
@@ -28,7 +25,7 @@ class Solution:
             start += 1
             end -= 1
 
-        pass
+        return ''.join(letters)
 
 solution = Solution()
 
