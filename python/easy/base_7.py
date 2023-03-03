@@ -1,7 +1,6 @@
 """
 Given an integer num, return a string of its base 7 representation.
 
- 
 
 Example 1:
 
@@ -27,7 +26,8 @@ class Solution:
             num = int(num / 7)
 
         return result[::-1]
-
+    
 
 solution = Solution()
 print(solution.convertToBase7(100))
+
