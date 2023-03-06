@@ -34,18 +34,10 @@ class Solution:
                 return start if nums[start] == target else -1
             
             if (num < target): 
-                if start == middle and end - start == 1:
-                    start += 1 
-                    continue
-                    
                 start = middle + 1
                 continue
                 
             if (num > target):
-                if end == middle and end - start == 1:
-                    end -= 1 
-                    continue
-
                 end = middle - 1
                 continue
                 
@@ -110,5 +102,5 @@ class Solution:
     
     
 s= Solution()
-s.searchRange([8,8,8,8,8,8], 8)
-s.searchRange([5,7,7,8,8,10], 6)
+print(s.searchRange([8,8,8,8,8,8], 8))
+print(s.searchRange([5,7,7,8,8,10], 6))
