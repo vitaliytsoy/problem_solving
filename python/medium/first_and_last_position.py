@@ -34,18 +34,10 @@ class Solution:
                 return start if nums[start] == target else -1
             
             if (num < target): 
-                if start == middle and end - start == 1:
-                    start += 1 
-                    continue
-                    
                 start = middle + 1
                 continue
                 
             if (num > target):
-                if end == middle and end - start == 1:
-                    end -= 1 
-                    continue
-
                 end = middle - 1
                 continue
                 
