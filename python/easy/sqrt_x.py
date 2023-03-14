@@ -31,11 +31,6 @@ class Solution:
             middle = (start + end) // 2
             double = middle * middle
             
-            print(f"middle {middle}")
-            print(f"start {start}")
-            print(f"end {end}")
-            print('=====')
-            
             if (double == x or start == end):
                 return middle - (1 if double > x else 0)
             
