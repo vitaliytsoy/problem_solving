@@ -43,12 +43,6 @@ class Solution:
                 continue
 
         return end 
-            
-
-
-
-
-        
         
 s = Solution()
 
