@@ -6,8 +6,28 @@ class TreeNode:
         self.right = right
 
 from typing import Optional
+from collections import deque
 
 class Solution:
+    def invertTreeBDS(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if (not root):
+            return root
+        
+        queue = deque([root])
+        
+        while queue:
+            node = queue.popleft()
+            
+            self.switch_nodes(node)
+            
+            if (node.left):
+                queue.append(node.left)
+                
+            if (node.right):
+                queue.append(node.right)
+                
+        return root
+    
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if (not root):
             return root
