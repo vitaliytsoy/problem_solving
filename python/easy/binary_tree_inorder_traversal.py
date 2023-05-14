@@ -26,10 +26,28 @@ class TreeNode:
         self.right = right
         
 from typing import Optional, List
-
+from collections import deque
 
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        pointer = root
+        stack = deque([])
+        result = []
+        
+        while (stack or pointer != None):
+            while (pointer != None):
+                stack.append(pointer)
+                pointer = pointer.left
+                
+            pointer = stack.pop()
+            result.append(pointer.val)
+            pointer = pointer.right
+            
+            
+        return result
+    
+    
+    def inorderTraversalRecursive(self, root: Optional[TreeNode]) -> List[int]:
         if root == None:
             return []
         
