@@ -43,11 +43,26 @@ class Solution:
         if root == None:
             return
         
-        result = []
+        pointer = root
+        prev = None
+        stack = deque()
         
-        self.traverse(root, result)
+        while (pointer != None or stack):
+            while (pointer != None):
+                stack.append(pointer)
+                pointer = pointer.left
             
-        return result == sorted(result) and len(set(result)) == len(result)
+            pointer = stack.pop()
+            
+            if (prev != None and prev.val >= pointer.val):
+                return False
+            
+            prev = pointer
+            pointer = pointer.right
+        
+        
+        return True
+
     
     def traverse(self, node, result):
         if (node.left):
