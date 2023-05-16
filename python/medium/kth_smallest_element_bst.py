@@ -45,6 +45,9 @@ class Solution:
             result.append(node.val)
             pointer = node.right
             
+            if (len(result) == k):
+                return result[-1]
+            
         return result[k - 1]
                 
             
