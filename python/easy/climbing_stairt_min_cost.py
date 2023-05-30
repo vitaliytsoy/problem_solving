@@ -32,15 +32,14 @@ from typing import List
 
 class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
-        n_steps = len(cost)
-        cache = [0] * n_steps
+        one_back = cost[1]
+        two_back = cost[0]
+        current = 0
         
-        for i in range(0, len(cost)):
-            if i == 0 or i == 1:
-                cache[i] = cost[i]
-                continue
-                
-            cache[i] = cost[i] + min(cache[i-1], cache[i-2])
+        for i in range(2, len(cost)):
+            current = cost[i] + min(one_back, two_back)
+            two_back = one_back
+            one_back = current
             
-        return min(cache[n_steps - 1], cache[n_steps - 2])
+        return min(one_back, two_back)
         
