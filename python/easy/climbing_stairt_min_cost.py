@@ -31,24 +31,16 @@ The total cost is 6.
 from typing import List
 
 class Solution:
-    cache = []
-    
     def minCostClimbingStairs(self, cost: List[int]) -> int:
-        self.cache = [0] * len(cost)
-        return min(self.min_cost(cost, len(cost) - 1), self.min_cost(cost, len(cost) - 2)) 
-    
-    def min_cost(self, cost: List[int], step: int):
-        if (step < 0):
-            return 0
+        n_steps = len(cost)
+        cache = [0] * n_steps
         
-        if (step == 0 or step == 1):
-            return cost[step]
-        
-        if (self.cache[step] != 0):
-            return self.cache[step]
-        
-        self.cache[step] = cost[step] + min(self.min_cost(cost, step - 1), self.min_cost(cost, step - 2))
-        
-        return self.cache[step]
-        
+        for i in range(0, len(cost)):
+            if i == 0 or i == 1:
+                cache[i] = cost[i]
+                continue
+                
+            cache[i] = cost[i] + min(cache[i-1], cache[i-2])
+            
+        return min(cache[n_steps - 1], cache[n_steps - 2])
         
