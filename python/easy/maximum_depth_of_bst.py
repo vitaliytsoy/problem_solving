@@ -28,10 +28,19 @@ from collections import deque
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
-            return 0;
+            return 0
         
         depth_left = self.maxDepth(root.left)
         depth_right = self.maxDepth(root.right)
         
         return max(depth_left, depth_right) + 1
+    
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        def dfs(root, depth):
+            if not root: 
+                return depth
+            
+            return max(dfs(root.left, depth + 1), dfs(root.right, depth + 1))
+                       
+        return dfs(root, 0)
                 
