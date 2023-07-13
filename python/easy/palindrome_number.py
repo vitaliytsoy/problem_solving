@@ -22,7 +22,7 @@ class Solution:
     def isPalindromeString(self, x: int) -> bool:
         return str(x) == str(x)[::-1]
     
-    def isPalindrome(self, x: int) -> bool:
+    def isPalindromeReverseInt(self, x: int) -> bool:
         reverse_number = 0
         initial_number = x
     
@@ -35,6 +35,19 @@ class Solution:
             x = x // 10
             
         return initial_number == reverse_number
+    
+    def isPalindromeReverseInt(self, x: int) -> bool:
+        if ((x % 10 == 0 and x > 0) or x < 0):
+            return False
+        
+        half_number = 0
+
+        while x > half_number:
+            half_number = half_number * 10 + x % 10
+            
+            x = x // 10
+            
+        return x == half_number or x == half_number // 10
     
 s = Solution()
 print(s.isPalindrome(10))
