@@ -33,13 +33,26 @@ Output: "LVIII"
 Explanation: L = 50, V = 5, III = 3.
 """
 class Solution:
+    roman = [
+        (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"), (100, "C"), (90, "XC"), (50, "L"), (40, "XL"), (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")
+    ]
     ones = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]            
     tens = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
     hundreds = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
     thousands = ["", "M", "MM", "MMM"]
 
-    def intToRoman(self, num: int) -> str: 
-        print(self.ones[num % 10])
+    def intToRoman(self, num: int) -> str:
+        result = ''
+        
+        for substractor, letter in self.roman:
+            while num >= substractor:
+                num -= substractor
+                result += letter 
+                
+        return result
+
+            
+    def intToRomanStatic(self, num: int) -> str:
         return self.thousands[(num // 1000) % 10] \
             + self.hundreds[(num // 100) % 10] \
             + self.tens[(num // 10) % 10] \
@@ -50,7 +63,7 @@ class Solution:
 
 s = Solution()
 
-print(s.intToRoman(58))
+print(s.intToRoman(1994))
 # print(s.intToRoman(3))
     
     
