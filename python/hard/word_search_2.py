@@ -39,45 +39,56 @@ class Trie:
             if (index == len(word) - 1):
                 pointer.is_end_node = True
 
-    def search(self, word: str) -> bool:
-        pointer = self.root
-        
-        for index in range(len(word)):
-            letter = word[index]
-            
-            if letter not in pointer.edges:
-                return False
-            
-            if index == len(word) - 1 and not pointer.edges[letter].is_end_node:
-                return False
-            
-            pointer = pointer.edges[letter]
-        
-        return True
-                
-    def startsWith(self, prefix: str) -> bool:
-        pointer = self.root
-        
-        for letter in prefix: 
-            if (letter in pointer.edges):
-                pointer = pointer.edges[letter]
-                continue;
-            
-            return False
-        
-        return True
-
-class Solution:
+class Solution:    
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         trie = Trie()
         result_words = []
     
         for word in words:
             trie.insert(word)
-            
-            
-    def helper(self, board, words, result_words)
-            
-        for row_i, row in enumerate(board):
-            for column_i in enumerate(row):
+        
+        for row in range(len(board)):
+            for col in range(len(board[0])):
+                self.helper(board, words, trie.root, '', row, col, result_words)
                 
+        return result_words
+            
+            
+    def helper(self, board: List[List[str]], words: List[str], node: TrieNode, word: str, row: int, column: int, res: List[str]):        
+        if (node.is_end_node):
+            res.append(word)
+            node.is_end_node = False
+        
+        if (row >= len(board) or row < 0 or column >= len(board[0]) or column < 0):
+            return
+        
+        
+        if (board[row][column] not in node.edges):
+            return
+        
+        temp = board[row][column]
+        word += board[row][column]
+        node = node.edges[temp]
+        board[row][column] = '#'
+            
+        self.helper(board, words, node, word, row + 1, column, res)
+        self.helper(board, words, node, word, row, column + 1, res)
+        self.helper(board, words, node, word, row - 1, column, res)
+        self.helper(board, words, node, word, row, column - 1, res)
+        
+        board[row][column] = temp
+                
+s = Solution()
+
+# print(s.findWords([["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], ["oath","pea","eat","rain"])) # ["eat","oath"]
+# print(s.findWords([["a"]], ["a"])) # ["a"]
+# print(s.findWords([["a","b"],["c","d"]], ["abcb"])) # []
+# print(s.findWords([["a","b"]], ["a", "b"])) # []
+
+board = [["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a"]]
+words = ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]
+print(s.findWords(board, words)) # []
+
+
+                
+# print(len([1,2,3]))
