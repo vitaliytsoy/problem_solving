@@ -49,12 +49,12 @@ class Solution:
         
         for row in range(len(board)):
             for col in range(len(board[0])):
-                self.helper(board, words, trie.root, '', row, col, result_words)
+                self.helper(board, trie.root, '', row, col, result_words)
                 
         return result_words
             
             
-    def helper(self, board: List[List[str]], words: List[str], node: TrieNode, word: str, row: int, column: int, res: List[str]):        
+    def helper(self, board: List[List[str]], node: TrieNode, word: str, row: int, column: int, res: List[str]):        
         if (node.is_end_node):
             res.append(word)
             node.is_end_node = False
@@ -71,10 +71,10 @@ class Solution:
         node = node.edges[temp]
         board[row][column] = '#'
             
-        self.helper(board, words, node, word, row + 1, column, res)
-        self.helper(board, words, node, word, row, column + 1, res)
-        self.helper(board, words, node, word, row - 1, column, res)
-        self.helper(board, words, node, word, row, column - 1, res)
+        self.helper(board, node, word, row + 1, column, res)
+        self.helper(board, node, word, row, column + 1, res)
+        self.helper(board, node, word, row - 1, column, res)
+        self.helper(board, node, word, row, column - 1, res)
         
         board[row][column] = temp
                 
