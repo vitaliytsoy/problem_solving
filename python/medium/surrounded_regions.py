@@ -44,45 +44,43 @@ class Solution:
         
         while queue:
             row, col = queue.popleft()
+            island = []
             
             if (visited[row][col]):
                 continue
             
-            self.hepler(board, visited, row, col)
-                       
-        print(board)
+            is_on_edge = self.hepler(board, visited, row, col, island, False)
+            
+            if (not is_on_edge):
+                for r_node, c_node in island:
+                    board[r_node][c_node] = 'X'
         
-    def hepler(self, board, visited, row, col):
-            if (not self.is_in_bound(board, row, col) or board[row][col] == "X"):
+    def hepler(self, board, visited, row, col, island, is_persist):
+            if (board[row][col] == "X"):
                 return
         
             directions = [(row - 1, col), (row + 1, col), (row, col + 1), (row, col - 1)]
             visited[row][col] = True
-            is_persist = False
+            island.append((row, col))
             
             for direction in directions:
                 dir_row, dir_col = direction
                 
-                if (not self.is_in_bound(board, dir_row, dir_col)):
-                    is_persist = True
-                    break
                 
-                if (board[dir_row][dir_col] == "O" and visited[dir_row][dir_col]):
+                if (not self.is_in_bound(board, dir_row, dir_col)):                    
                     is_persist = True
+                    
                     break
-                        
-            if (not is_persist):
-                board[row][col] = "X"
-                
+            
             for direction in directions:
                 dir_row, dir_col = direction 
                 
                 if (not self.is_in_bound(board, dir_row, dir_col) or visited[dir_row][dir_col]): 
                     continue
-                                
-                self.hepler(board, visited, dir_row, dir_col)
-                    
-
+                
+                is_persist = True if self.hepler(board, visited, dir_row, dir_col, island, is_persist) else is_persist
+                
+            return is_persist
 
                 
 
@@ -104,18 +102,3 @@ s.solve([["O","X","X","O","X"],["X","O","O","X","O"],["X","O","X","O","X"],["O",
 # ["X","O","X","O","X"],
 # ["O","X","O","O","O"],
 # ["X","X","O","X","O"]
-
-
-# ["O","X","X","O","X"],
-# ["X","X","X","X","O"],
-# ["X","X","X","O","X"],
-# ["O","X","O","O","O"],
-# ["X","X","O","X","O"]
-
-
-# ["O","X","X","O","X"],
-# ["X","X","X","X","O"],
-# ["X","X","X","X","X"],
-# ["O","X","X","X","O"],
-# ["X","X","O","X","O"]
-
