@@ -60,6 +60,7 @@ class Solution:
             + self.dfs(grid, row, col - 1) 
     
 s = Solution()
+
 print(s.islandPerimeter([[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]])) # 16
 print(s.islandPerimeter([[1]])) # 4
 print(s.islandPerimeter([[1,0]])) # 4
