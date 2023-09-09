@@ -24,10 +24,27 @@ Do not return anything, modify nums in-place instead.
 
 """
 from typing import List
+import math
 
 class Solution:
-    def rotate(self, nums: List[int], k: int) -> None:
+    def reverse(self, nums, start, end):
+        while start < end:
+            nums[start], nums[end] = nums[end], nums[start]
+            start +=1
+            end -= 1
+
+    def rotate_fast(self, nums: List[int], k: int) -> None:
         if (k == len(nums)):
+            return None
+        
+        new_k = k if k < len(nums) else k - ((k // len(nums)) * len(nums))
+    
+        self.reverse(nums, 0, len(nums) - 1)
+        self.reverse(nums, 0, new_k - 1)
+        self.reverse(nums, new_k, len(nums) - 1)
+
+    def rotate(self, nums: List[int], k: int) -> None:
+        if (k == len(nums) or k == 0):
             return None
         
         new_k = k if k < len(nums) else k - ((k // len(nums)) * len(nums))
@@ -35,12 +52,9 @@ class Solution:
         for i in range(len(nums) - 1, new_k - 1, -1):            
             for j in range(1, new_k + 1):
                 nums[i], nums[i - j] = nums[i - j], nums[i]
+                
         
 s = Solution()
-s.rotate([1,2,3,4,5,6,7], 3) # [5,6,7,1,2,3,4]
-
-# [1,2,3,4,5,6,7] k = 3
-# [1,2,3,4,5,6,7] k = 6
-
-
-  
+s.rotate_fast([1,2,3,4,5,6,7], 3) # [5,6,7,1,2,3,4]
+s.rotate_fast([-1,-100,3,99], 2) # [3,99,-1,-100]
+s.rotate_fast([1,2,3], 0) # [1,2,3]
