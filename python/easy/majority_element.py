@@ -17,6 +17,27 @@ from typing import List
 from collections import defaultdict
 
 class Solution:
+    # Boyer–Moore majority vote algorithm
+    def majorityElemen_boyer_moore(self, nums: List[int]) -> int:
+        major = nums[0]
+        count = 1
+        
+        for i in range(1, len(nums)):
+            if (count == 0):
+                major = nums[i]
+                count += 1
+                continue
+            
+            if (major != nums[i]):
+                count -= 1
+                continue
+            
+            if (major == nums[i]):
+                count += 1
+                continue
+            
+        return major
+    
     def majorityElement(self, nums: List[int]) -> int:
         major = '#'
         entries = defaultdict(lambda: 0)
@@ -36,6 +57,7 @@ class Solution:
 
     
 s = Solution()
-print(s.majorityElement([3,2,3]))
-print(s.majorityElement([3,3,4]))
+# print(s.majorityElement([3,2,3]))
+# print(s.majorityElement([3,3,4]))
+print(s.majorityElemen_boyer_moore([1,3,1,1,4,1,1,5,1,1,6,2,2]))
 
