@@ -19,6 +19,32 @@ from typing import List
 
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
+        c_length = len(citations)
+        bucket = [0] * (c_length + 1)
+        
+        
+        for c in citations:
+            if (c >= c_length):
+                bucket[c_length] += 1
+            else:
+                bucket[c] += 1
+        
+        count = 0
+    
+        for i in range(c_length, 0, -1):
+            count += bucket[i]
+            
+            print(bucket[i])
+            print(count)
+            print(bucket)
+            print()
+            
+            if (count >= i):
+                return i
+
+        return 0
+    
+    def hIndex_own(self, citations: List[int]) -> int:
         citations.sort()
         h_index = 0
         
