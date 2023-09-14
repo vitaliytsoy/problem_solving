@@ -19,16 +19,21 @@ from typing import List
 
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        pre = [1] * len(nums)
-        post = [1] * len(nums)
+        answer = [1] * len(nums)
+        count = 1
                
         for i in range(1, len(nums)):
-            pre[i] = pre[i - 1] * nums[i - 1]
+            answer[i] = count * nums[i - 1]
+            count *= nums[i - 1]
+            
+            
+        count = 1
             
         for i in range(len(nums) - 2, -1, -1):
-            post[i] = post[i + 1] * nums[i + 1]
-            
-        return [pre[i] * post[i] for i in range(len(nums))]
+            answer[i] *= count * nums[i + 1]
+            count *= nums[i + 1]
+        
+        return answer
             
 s = Solution()
 print(s.productExceptSelf([1,2,3,4])) # [24,12,8,6]
