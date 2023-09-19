@@ -17,9 +17,27 @@ Input: nums = [0,3,7,2,5,8,4,6,0,1]
 Output: 9
 """
 from typing import List 
+from collections import defaultdict
 
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
+        result = 0
+        numbers = defaultdict(lambda : 0)
+        
+        for num in nums: 
+            if (num in numbers and numbers[num] != 0):
+                continue
+            
+            left = numbers[num - 1] 
+            right = numbers[num + 1]
+            numbers[num] = left + right + 1
+            numbers[num - left] = numbers[num]
+            numbers[num + right] = numbers[num]
+            result = max(result, numbers[num])            
+
+        return result
+    
+    def longestConsecutive_set(self, nums: List[int]) -> int:
         set_nums = set(nums)
         result = 0
         
@@ -34,7 +52,7 @@ class Solution:
                 
         return result
 
-    
+
     def longestConsecutive_nlogn(self, nums: List[int]) -> int:
         start, end = 0, 1
         longest_sequence = 0
