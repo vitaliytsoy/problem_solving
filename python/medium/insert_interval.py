@@ -19,6 +19,24 @@ Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
 from typing import List
 
 class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        left, right = [], []
+        x_new, y_new = newInterval
+        
+        for interval in intervals:
+            x_cur, y_cur = interval
+            
+            if (y_cur < x_new): # 7 < 3
+                left.append(interval)
+            elif(x_cur > y_new): # 6 > 8
+                right.append(interval)
+            else:
+                x_new = min(x_new, x_cur)
+                y_new = max(y_new, y_cur)
+                
+        return left + [[x_new, y_new]] + right
+
+    
     def merge(self, range_a, range_b):
         x_a, y_a = range_a
         x_b, y_b = range_b
@@ -35,7 +53,7 @@ class Solution:
             or (x_a > x_b and y_a < y_b)
         
     
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+    def insert_own(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         p_current, p_next = 0, 1
         x_new, y_new = newInterval
         
@@ -82,10 +100,10 @@ class Solution:
 s = Solution()
 
 print(s.insert([[1,2],[3,5],[6,7],[8,10],[12,16]], [4,8])) # [[1,2],[3,10],[12,16]]
-print(s.insert([[1,3],[6,9]], [2,5])) # [[1,5],[6,9]]
-print(s.insert([[1,3],[6,7]], [4,5])) #  [[1, 3], [4, 5], [6, 7]]
-print(s.insert([[3,4],[6,7]], [1,2])) #  [[1, 2], [3, 4], [6, 7]]
-print(s.insert([[3,4],[6,7]], [8,9])) #  [[3, 4], [6, 7], [8, 9]]
+# print(s.insert([[1,3],[6,9]], [2,5])) # [[1,5],[6,9]]
+# print(s.insert([[1,3],[6,7]], [4,5])) #  [[1, 3], [4, 5], [6, 7]]
+# print(s.insert([[3,4],[6,7]], [1,2])) #  [[1, 2], [3, 4], [6, 7]]
+# print(s.insert([[3,4],[6,7]], [8,9])) #  [[3, 4], [6, 7], [8, 9]]
             
 # [4, 8], [3, 6] inside
 # [4, 8], [5, 9] right-out
