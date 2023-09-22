@@ -46,15 +46,6 @@ class Solution:
         
 
 solution = Solution()
-print(solution.isValid("()[]{}"))
-print(solution.isValid("([]){}"))
-print(solution.isValid("]"))
-
-
-
-# a = list('qwerty')
-# print(a[:-1])
-# a.pop(-1)
-
-# print(a)
-
+print(solution.isValid("()[]{}")) # True
+print(solution.isValid("([]){}")) # True
+print(solution.isValid("]")) # False
