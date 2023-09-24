@@ -50,3 +50,18 @@ class Solution:
             unique.add(pointer)
 
         return False
+    
+    def has_cycle_2(self, head: Optional[ListNode]) -> bool:
+        if head == None or head.next == None:
+            return False
+        
+        p1, p2 = head, head.next
+        
+        while p2 != None and p2.next != None:
+            if (p1 == p2): 
+                return True
+            
+            p1 = p1.next
+            p2 = p2.next.next
+            
+        return False
