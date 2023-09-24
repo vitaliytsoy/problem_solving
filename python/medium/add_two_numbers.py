@@ -31,6 +31,36 @@ class ListNode:
         
 
 class Solution:
+    def add_two_numbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        root = ListNode(0)
+        pointer = root
+        value = 0
+        remainder = 0
+        
+        while l1 or l2 or remainder:
+            if (l1):
+                value += l1.val
+                        
+            if (l2):
+                value += l2.val
+                
+            value += remainder
+            pointer.val = value % 10
+            remainder = value // 10
+            value = 0
+            
+            if (l1): 
+                l1 = l1.next
+                
+            if (l2): 
+                l2 = l2.next
+                
+            if (l1 or l2 or remainder):
+                pointer.next = ListNode(0)
+                pointer = pointer.next
+                
+        return root
+        
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         sum = 0
         root = ListNode(0)
