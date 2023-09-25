@@ -37,7 +37,45 @@ class Node:
         self.next = next
         self.random = random
 
-class Solution:    
+class Solution: 
+    def copyRandomList(self, head: Optional[Node]) -> Optional[Node]:
+        if (head == Node):
+            return None
+        
+        pointer = head
+        
+        while pointer:
+            copy = Node(pointer.val, pointer.next)
+            pointer.next = copy
+            pointer = pointer.next.next
+        
+        pointer = head
+        
+        while pointer:
+            if (pointer.random):
+                pointer.next.random = pointer.random.next
+            
+            pointer = pointer.next.next
+            
+            
+        p1 = head
+        p2 = None
+        new_head = None
+
+        while p1:
+            if (new_head == None):
+                new_head = p1.next
+                p2 = new_head
+            else:
+                p2.next = p1.next
+                p2 = p2.next
+            
+            p1 = p1.next.next
+                  
+        return new_head
+            
+        
+      
     def copyRandomList(self, head: Optional[Node]) -> Optional[Node]:
         if (head == None):
             return None
