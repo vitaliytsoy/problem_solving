@@ -29,6 +29,38 @@ class Solution:
         if (head == None):
             return None
         
+        p1, p2 = None, head
+        counter = 1
+        
+        # 1 - 2 - 3 - 4 - 5; 2 
+        
+        #|                |
+        # 1 - 2 - 3 - 4 - 5; 5
+        
+        
+        while p2.next:
+            counter += 1
+            
+            if (counter > n):
+                if (p1 == None):
+                    p1 = head
+                else:
+                    p1 = p1.next
+            
+            p2 = p2.next
+        
+        if (p1 == None):
+            return head.next
+            
+        p1.next = p1.next.next
+        
+        return head
+        
+
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        if (head == None):
+            return None
+        
         pointer = head
         length = 0
         
