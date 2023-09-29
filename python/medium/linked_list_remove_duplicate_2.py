@@ -12,27 +12,6 @@ Input: head = [1,1,1,2,3]
 Output: [2,3]
 """
 from typing import Optional
-# |   |     |
-# N 1 3 3 3 4 5 5 5
-
-# |       | 
-# N 3 3 3 4 5 5 5
-
-#     | |   |
-# N 1 2 3 3 4 4 7
-
-
-#   |  |
-# N 1 2 4 4 5
-
-# |        |
-# N 3 3 3 3
-
-#   | |
-# N 3 3
-
-# |     |
-# N 1 1 2
 
 # Definition for singly-linked list.
 class ListNode:
@@ -41,6 +20,26 @@ class ListNode:
         self.next = next
 
 class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if (head == None or head.next == None):
+            return head
+        
+        head_stub = ListNode(0, head)
+        p_prev, p_cur =head_stub, head
+
+        while p_cur:
+            while p_cur.next and p_cur.val == p_cur.next.val:
+                p_cur = p_cur.next
+                
+            if p_prev.next == p_cur:
+                p_prev = p_prev.next
+            else: 
+                p_prev.next = p_cur.next
+                
+            p_cur = p_cur.next
+            
+        return head_stub.next
+    
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if (head == None or head.next == None):
             return head
