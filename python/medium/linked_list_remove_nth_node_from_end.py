@@ -31,13 +31,7 @@ class Solution:
         
         p1, p2 = None, head
         counter = 1
-        
-        # 1 - 2 - 3 - 4 - 5; 2 
-        
-        #|                |
-        # 1 - 2 - 3 - 4 - 5; 5
-        
-        
+
         while p2.next:
             counter += 1
             
@@ -91,13 +85,4 @@ class Solution:
             prev_p = pointer
             pointer = pointer.next
             
-        return head
-
-            
-        
-            
-            
-            
-            
-    
         return head
