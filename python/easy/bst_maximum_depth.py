@@ -43,4 +43,30 @@ class Solution:
             return max(dfs(root.left, depth + 1), dfs(root.right, depth + 1))
                        
         return dfs(root, 0)
+    
+    
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if (root == None):
+            return 0
+        
+        stack = deque()
+        stack.append((root, 1))
+        max_depth = 1
+        
+        while stack:
+            node, depth = stack.pop()
+            max_depth = max(max_depth, depth)
+            
+            if (node.left):
+                stack.append((node.left, depth + 1))
+                
+            if (node.right):
+                stack.append((node.right, depth + 1))
+                
+        return max_depth
+                
+            
+                
+                
+    
                 
