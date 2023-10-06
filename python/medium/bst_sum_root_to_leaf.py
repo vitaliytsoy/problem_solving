@@ -57,5 +57,23 @@ class Solution:
             
         return left + right
     
+    
+    def traverse(self, node: Optional[TreeNode], number: int):
+        number = (number * 10) + node.val
+        
+        if node.left == None and node.right == None:
+            return number
+        
+        left = 0
+        right = 0
+        
+        if (node.left):
+            left = self.traverse(node.left, number)
+            
+        if (node.right):
+            right = self.traverse(node.right, number)
+            
+        return left + right
+    
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        return self.traverse(root, '')
+        return self.traverse(root, 0)
