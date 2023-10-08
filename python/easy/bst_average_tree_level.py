@@ -28,6 +28,31 @@ class Solution:
         if (root == None):
             return []
         
+        queue = deque([root])
+        avgs = []
+        
+        while queue:
+            count = len(queue)
+            total = 0            
+            
+            for _ in range(count):
+                node = queue.popleft()
+                total += node.val
+                
+                if (node.left):
+                    queue.append(node.left)
+                    
+                if node.right:
+                    queue.append(node.right)
+                    
+            avgs.append(total/count)
+   
+        return avgs
+    
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        if (root == None):
+            return []
+        
         queue = deque([(root, 0)])
         avgs = [[0, 0]]
         
@@ -47,11 +72,4 @@ class Solution:
                 queue.append((node.right, depth + 1))
                 
         return [s/c for s,c in avgs]
-            
-            
-            
-                
-            
-    
-            
             
