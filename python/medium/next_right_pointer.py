@@ -82,16 +82,4 @@ class Solution:
             
         return children
             
-    
-    
-            
-        # queue = deque([root])
-        
-        # root.next = None
-        
-        # while (queue):
-        #     node = queue.popleft()
-            
-        #     if (node.left):
-        #         node.left.next = node.right 
             
