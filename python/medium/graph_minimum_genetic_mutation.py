@@ -31,6 +31,7 @@ class Solution:
         genes = ["A", "C", "G", "T"]
         min_reach_mutation = {}
         min_count = sys.maxsize
+        bank_set = set(bank)
         
         while stack:
             a_gene, b_gene, count = stack.pop()
@@ -52,7 +53,7 @@ class Solution:
                     else:
                         min_reach_mutation[c_gene] = count + 1
                     
-                    if c_gene in bank:
+                    if c_gene in bank_set:
                         genes_mutations.add(c_gene)
                         stack.append((c_gene, b_gene, count + 1))
                     
