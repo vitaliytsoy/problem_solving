@@ -20,38 +20,31 @@ from typing import List
 
 class Solution:
     def backtrack(self,
-        numbers: List[int], 
-        visited: set[int], 
+        combination: List[int],
+        n: int,
+        k: int,
+        prev: int,
         result: List[List[int]],
-        combination: List[int], 
-        i: int
     ):
-        if (i >= len(combination)):
-            return
-        
-        for number in numbers:
-            if number in combination:
+        if len(combination) == k:
+            result.append(combination.copy())
+            
+            return 
+
+        for number in range(prev, n + 1):
+            if (number in combination):
                 continue
             
-            combination[i] = number 
-                        
-            if (i == len(combination) - 1):
-                c_hash = str(sorted(combination))
-                
-                if (c_hash in visited):
-                    continue
-                
-                result.append(combination.copy())
-                visited.add(c_hash)
-                
-            self.backtrack(numbers, visited, result, combination, i + 1)
+            combination.append(number)
+            
+            self.backtrack(combination, n, k, number, result) 
+            
+            combination.pop()
         
     def combine(self, n: int, k: int) -> List[List[int]]:
-        numbers = [i for i in range(1, n + 1)]
-        visited = set()
         result = []
         
-        self.backtrack(numbers, visited, result, [None] * k , 0)
+        self.backtrack([], n, k, 1, result)
         
         return result
     
@@ -59,4 +52,3 @@ s = Solution()
 print(s.combine(4, 2))
 # print(s.combine(10, 7))
 # print(s.combine(20, 10))
-    
