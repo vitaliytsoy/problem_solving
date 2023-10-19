@@ -19,33 +19,30 @@ Output: [[1]]
 from typing import List
 
 class Solution:
+    def backtrack(self, nums, permutation, i, result):
+        if (i >= len(permutation)):
+            result.append(permutation.copy())
+            
+            return
+            
+        for num in nums:
+            if num in permutation:
+                continue
+            
+            permutation[i] = num
+            
+            self.backtrack(nums, permutation, i + 1, result)
+            
+        permutation[i] = None
+
     def permute(self, nums: List[int]) -> List[List[int]]:
         if (len(nums) == 0):
             return []
-        
-        
-        def backtrack(permutation, i, result):
-            if (i >= len(permutation)):
-                result.append(permutation.copy())
                 
-                return
-                
-            for num in nums:
-                if num in permutation:
-                    continue
-                
-                permutation[i] = num
-                
-                backtrack(permutation, i + 1, result)
-                
-            permutation[i] = None
-                
-                
-            
         result = []
         permutation = [None] * len(nums)
             
-        backtrack(permutation, 0, result)
+        self.backtrack(nums, permutation, 0, result)
 
         return result
     
