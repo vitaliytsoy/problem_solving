@@ -38,6 +38,9 @@ class Solution:
             return
             
         for num in candidates:
+            if  num > target - curr_sum :
+                continue
+            
             if len(combination) > 0 and num < combination[-1]:
                 continue
 
@@ -49,7 +52,6 @@ class Solution:
             
     
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        # unique = set(candidates)
         result = []
         
         candidates.sort()
