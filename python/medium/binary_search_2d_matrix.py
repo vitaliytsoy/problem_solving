@@ -11,6 +11,22 @@ from typing import List
 
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        i, j = 0, len(matrix[0]) - 1
+        
+        while i < len(matrix) and j >= 0:
+            num = matrix[i][j]
+            
+            if num == target:
+                return True
+            
+            if num > target:
+                j -= 1
+            else:
+                i += 1
+                
+        return False
+    
+    def searchMatrix2(self, matrix: List[List[int]], target: int) -> bool:
         n = len(matrix)
         m = len(matrix[0])
         start = 0
@@ -84,10 +100,10 @@ class Solution:
 
     
 s = Solution()
-# print(s.searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 3)) # true
-# print(s.searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 13)) # false
-# print(s.searchMatrix([[1]], 2)) # false
-# print(s.searchMatrix([[1,3]], 3)) # true
+print(s.searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 3)) # true
+print(s.searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 13)) # false
+print(s.searchMatrix([[1]], 2)) # false
+print(s.searchMatrix([[1,3]], 3)) # true
 print(s.searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,50]], 5)) # true
 
 
