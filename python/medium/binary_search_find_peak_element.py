@@ -26,6 +26,21 @@ class Solution:
         start = 0 
         end = len(nums) - 1
         
+        while start < end:
+            mid = (start + end) // 2
+            mid_num = nums[mid]
+            
+            if mid_num < nums[mid + 1]:
+                start = mid + 1
+            else:
+                end = mid
+                
+        return start
+    
+    def findPeakElement1(self, nums: List[int]) -> int:
+        start = 0 
+        end = len(nums) - 1
+        
         if (len(nums) == 1):
             return 0
         
