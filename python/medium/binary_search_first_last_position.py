@@ -22,8 +22,52 @@ Output: [-1,-1]
 """
 from typing import List
 
+
 class Solution:
+    def find_start(self, nums, target): 
+        start, end = 0, len(nums) - 1
+        
+        while start < end:
+            middle = (start + end) // 2
+            middle_num = nums[middle]
+            
+            if target <= middle_num:
+                end = middle
+            else:
+                start = middle + 1
+                
+        return start if nums[start] == target else -1 
+            
+    
+    def find_end(self, nums, target):
+        start, end = 0, len(nums) - 1
+        
+        while start < end:
+            middle = (start + end) // 2 + 1
+            middle_num = nums[middle]
+            
+            if target >= middle_num:
+                start = middle
+            else:
+                end = middle - 1
+                
+        return start if nums[start] == target else -1 
+    
     def searchRange(self, nums: List[int], target: int) -> List[int]:
+        if len(nums) == 0:
+            return [-1, -1]
+        
+        start = self.find_start(nums, target)
+        
+        if start == -1:
+            return [-1, -1]
+        
+        end = self.find_end(nums, target)
+        
+        return [start, end]
+
+    
+    def searchRange1(self, nums: List[int], target: int) -> List[int]:
         start, end = 0, len(nums) - 1
         
         while start <= end:
