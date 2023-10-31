@@ -36,14 +36,14 @@ class Solution:
         while start < end:
             middle = (start + end) // 2
             middle_num = nums[middle]
-    
-            if middle_num >= nums[end] or middle_num <= nums[start]:
-                if middle_num >= nums[end]:
-                    start = middle + 1
-                else:
-                    end = middle
+            
+            if nums[start] < nums[end]:
+                return nums[start]
+        
+            if middle_num >= nums[end]:
+                start = middle + 1
             else:
-                return nums[start]                
+                end = middle            
                 
         return nums[start]
 
