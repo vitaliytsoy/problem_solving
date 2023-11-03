@@ -32,30 +32,35 @@ import heapq
 # [1,3,5] [2,5,6]
 class Solution:
     def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
+        result = []
         queue = []
+        visited = set()
         
-        def push(i, j):
-            if i < len(nums1) and j < len(nums2):
-                heapq.heappush(queue, [nums1[i] + nums2[j], i, j])
-        push(0, 0)
-        pairs = []
+        heapq.heappush(queue, (nums1[0] + nums2[0] , 0, 0))
         
-        while queue and len(pairs) < k:
-            print(queue)
+        while queue and len(result) < k:
             _, i, j = heapq.heappop(queue)
-            pairs.append([nums1[i], nums2[j]])
-            push(i, j + 1)
-            if j == 0:
-                push(i + 1, 0)
-        return pairs
-    
+            
+            if ((i, j) in visited):
+                continue
+            
+            result.append([nums1[i], nums2[j]])
+            visited.add((i, j))
+
+            if i + 1 < len(nums1): 
+                heapq.heappush(queue, (nums1[i + 1] + nums2[j], i + 1, j))
+                
+            if j + 1 < len(nums2): 
+                heapq.heappush(queue, (nums1[i] + nums2[j + 1], i, j + 1))
+                
+        return result
 
     
 s = Solution()
-# print(s.kSmallestPairs([1,2], [3], 3)) # [[1,3],[2,3]]
-# print(s.kSmallestPairs([1,1,2], [1,2,3], 2)) # [1,1],[1,1],[1,2],[2,1],[1,2],[2,2],[1,3],[1,3],[2,3]
+print(s.kSmallestPairs([1,2], [3], 3)) # [[1,3],[2,3]]
+print(s.kSmallestPairs([1,1,2], [1,2,3], 2)) # [1,1],[1,1],[1,2],[2,1],[1,2],[2,2],[1,3],[1,3],[2,3]
 print(s.kSmallestPairs([1,7,11], [2,4,6], 3)) # [1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]
-# print(s.kSmallestPairs([1,2,4,5,6], [3,5,7,9], 3)) # 
+print(s.kSmallestPairs([1,2,4,5,6], [3,5,7,9], 3)) # 
 
 #    3  5  7  9
 # 1  4  6  8  10
