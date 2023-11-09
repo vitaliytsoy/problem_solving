@@ -50,16 +50,6 @@ class Solution:
                 heapq.heappush(queue, (nums1[i] + nums2[j + 1], i, j + 1))
                 
         return result
-        
-    
-
-            if i + 1 < len(nums1): 
-                heapq.heappush(queue, (nums1[i + 1] + nums2[j], i + 1, j))
-                
-            if j + 1 < len(nums2): 
-                heapq.heappush(queue, (nums1[i] + nums2[j + 1], i, j + 1))
-                
-        return result
 
     
 s = Solution()
