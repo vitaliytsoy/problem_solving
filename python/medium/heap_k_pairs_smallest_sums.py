@@ -24,12 +24,8 @@ Output: [[1,3],[2,3]]
 Explanation: All possible pairs are returned from the sequence: [1,3],[2,3]
 """
 from typing import List
-from collections import deque
-import itertools
 import heapq
 
-#    |       |
-# [1,3,5] [2,5,6]
 class Solution:
     def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
         result = []
