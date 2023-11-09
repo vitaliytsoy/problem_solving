@@ -35,13 +35,23 @@ class Solution:
         heapq.heappush(queue, (nums1[0] + nums2[0] , 0, 0))
         
         while queue and len(result) < k:
-            _, i, j = heapq.heappop(queue)
+            s, i, j = heapq.heappop(queue)
             
             if ((i, j) in visited):
                 continue
             
             result.append([nums1[i], nums2[j]])
             visited.add((i, j))
+
+            if i + 1 < len(nums1): 
+                heapq.heappush(queue, (nums1[i + 1] + nums2[j], i + 1, j))
+                
+            if j + 1 < len(nums2): 
+                heapq.heappush(queue, (nums1[i] + nums2[j + 1], i, j + 1))
+                
+        return result
+        
+    
 
             if i + 1 < len(nums1): 
                 heapq.heappush(queue, (nums1[i + 1] + nums2[j], i + 1, j))
