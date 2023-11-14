@@ -53,31 +53,40 @@ class Solution:
     
     # ---
     
-    def find_max_sum(self, nums: List, n: int) -> int:
-        if n < 0:
-            return 0
-        
-        if n in self.cache:
-            return self.cache[n]
-        
-        self.cache[n] = max(self.find_max_sum(nums, n - 2) + nums[n], self.find_max_sum(nums, n - 1))
-
-        return self.cache[n]
-    
     def rob(self, nums: List[int]) -> int:
+        if len(nums) < 2:
+            return nums[0]
+        
         cache = [-1] * len(nums)
         
-        for i in range(len(nums)):
-            cache[i] = max(nums[i])
-            
-            
-
+        cache[0] = nums[0]
+        cache[1] = max(nums[1], nums[0])
         
-        return 
+        for i in range(2, len(nums)):
+            cache[i] = max(cache[i - 2] + nums[i] , cache[i - 1])
+            
+        return cache[len(nums) - 1]
+    
+    # ---
     
     
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) < 2:
+            return nums[0]
+        
+        prev = 0
+        prev_prev = 0
+        result = max(prev, prev_prev)
+        
+        for i in range(len(nums)):
+            result = max(nums[i] + prev_prev, prev)
+            prev_prev = prev
+            prev = result
+            
+        return result
     
     
 s = Solution()
 print(s.rob([1,2,3,1])) # 4
 print(s.rob([2,7,9,3,1])) # 12
+print(s.rob([2,1,1,2])) # 4
