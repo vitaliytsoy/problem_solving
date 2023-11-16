@@ -87,11 +87,89 @@ class Solution:
                 
         return self.search_word_break(s, trie)
     
+    
+    
+    def search_word_break(self, s: str, word_set: set) -> bool:
+        word = ''
+        
+        if s == '':
+            return True
+        
+        for i in range(len(s)):
+            word += s[i]
+            
+            if word in word_set and self.search_word_break(s[i + 1:], word_set):
+                return True
+        
+    
+        return False
+    
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        word_start = [False] * len(s)
+        word_end = [False] * len(s)
+        trie = Trie(wordDict)
+        
+        i = 0
+        
+        while i < len(s):
+            for j in range(i + 1, len(s) + 1):
+                word = s[i:j]
+                is_starting_from, is_end_word = trie.startsFrom(word)
+
+                print(i, j)
+                print(word_start)
+                print(word_end)
+
+                if not is_starting_from:
+                    if (i == 0):
+                        i += 1
+
+                    while i < len(s) and not word_end[i]:
+                        i += 1
+                        
+                    i += 1
+
+                    break
+                        
+                
+                if is_end_word:
+                    word_start[i] = True
+                    word_end[j - 1] = True
+                    
+            i += 1
+            
+        print(word_start)
+        print(word_end)
+                    
+                    
+        # if not wb[-1] or not wb[0]:
+        #     return False
+        
+        # pointer = 1
+        
+        # while pointer < len(s) - 1:
+        #     if not wb[pointer]:
+        #         pointer += 1
+        #         continue
+            
+        #     if not wb[pointer + 1]:
+        #         return False
+            
+        #     pointer += 2
+            
+        
+        return True
+        
+                    
+        print(wb)
+    
 s = Solution()
-print(s.wordBreak('leetcode', ["leet","code"])) # True
-print(s.wordBreak('applepenapple', ["apple","pen"])) # True
-print(s.wordBreak('catsandog', ["cats","dog","sand","and","cat"])) # False
-print(s.wordBreak('bb', ["a","b","bbb","bbbb"])) # True
+# print(s.wordBreak('leetcode', ["leet","code"])) # True
+# print(s.wordBreak('applepenapple', ["apple","pen"])) # True
+# print(s.wordBreak('catsandog', ["cats","dog","sand","and","cat"])) # False
+# print(s.wordBreak('bb', ["a","b","bbb","bbbb"])) # True
 print(s.wordBreak("aaaaaaa", ["aaaa","aa"])) # False
+# print(s.wordBreak("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]))
+
 
 
