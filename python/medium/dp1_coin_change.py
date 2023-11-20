@@ -34,12 +34,10 @@ class Solution:
         
         if amount == 0:
             return 0
-        
-        if amount in cache:
-            return cache[amount]
-        
+            
         for i in range(len(coins)):
             coin = coins[i]
+            
 
             if coin > amount: 
                 continue
@@ -47,19 +45,23 @@ class Solution:
             if coin == amount:
                 return 1
             
-            sub_result = self.coin_change_memo(coins, amount - coin, cache)
+            new_amount = amount - coin
+            
+            if amount in cache:
+                return cache[amount]
+            
+            sub_result = self.coin_change_memo(coins, new_amount, cache)
             
             if (sub_result == -1):
-                cache[amount] = -1   
+                cache[new_amount] = -1   
                 continue
             
             min_coins = min(min_coins,  1 + sub_result)
-            cache[amount] = min_coins
+            cache[new_amount] = sub_result
             
             
         return -1 if min_coins == sys.maxsize else min_coins
     
-
 
     def coinChange(self, coins: List[int], amount: int) -> int:
         coins.sort(reverse=True)
@@ -92,5 +94,3 @@ print(s.coinChange([2], 3)) # -1
 print(s.coinChange([1], 0)) # 0
 print(s.coinChange([186,419,83,408], 6249)) # 20
 print(s.coinChange([484,395,346,103,329], 4259)) # 11
-
-
