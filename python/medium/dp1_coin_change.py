@@ -87,7 +87,7 @@ class Solution:
         return dp[-1] if dp[-1] != sys.maxsize else -1
         
 s = Solution()
-print(s.coinChange([1,2,5], 11)) # 3 
+print(s.coinChange([1,2,5], 11)) # 3
 print(s.coinChange([2], 3)) # -1
 print(s.coinChange([1], 0)) # 0
 print(s.coinChange([186,419,83,408], 6249)) # 20
