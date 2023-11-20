@@ -41,7 +41,30 @@ class Solution:
             
         return max(dp)
     
+    
+    # ---
+        
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = [(-1, -1)] * len(nums)
+        dp[0] = (1, nums[0])
+
+        for i in range(1, len(nums)):
+            num = nums[i]
+            lis = 1
+            
+            for j in range(i):
+                lis_count, lis_num = dp[j]
+                
+                if (num <= lis_num):
+                    continue
+                
+                lis = max(lis, lis_count + 1)
+                
+            dp[i] = (lis, num)
+            
+        return max(dp)[0]
+    
 s = Solution()
 print(s.lengthOfLIS([10,9,2,5,3,7,101,18])) # 4
 print(s.lengthOfLIS([0,1,0,3,2,3])) # 4
-print(s.lengthOfLIS([7,7,7,7,7,7,7])) # 4
+print(s.lengthOfLIS([7,7,7,7,7,7,7])) # 1
