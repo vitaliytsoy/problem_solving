@@ -68,25 +68,23 @@ class Solution:
     
         return self.coin_change_memo(coins, amount, {})
     
-    # def coinChange(self, coins: List[int], amount: int) -> int:
-    #     coins.sort()
-
-    #     count = 0
-    #     pointer = len(coins) - 1
+    # ---
     
-    #     while pointer >= 0 and amount > 0:
-    #         coin = coins[pointer]
-            
-    #         if coin > amount:
-    #             pointer -= 1
-    #             continue
-            
-    #         amount -= coin
-    #         count += 1
-            
-    #     print('LEFT_AMOUNT',amount)
-            
-    #     return -1 if amount > 0 else count
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        coins.sort()
+        
+        dp = [sys.maxsize] * (amount + 1)
+        dp[0] = 0
+        
+        for n in range(1, len(dp)):
+            for coin in coins:
+                
+                if coin > n:
+                    break
+                
+                dp[n] = min(dp[n], dp[n - coin] + 1)
+                
+        return dp[-1] if dp[-1] != sys.maxsize else -1
         
 s = Solution()
 print(s.coinChange([1,2,5], 11)) # 3 
@@ -94,3 +92,4 @@ print(s.coinChange([2], 3)) # -1
 print(s.coinChange([1], 0)) # 0
 print(s.coinChange([186,419,83,408], 6249)) # 20
 print(s.coinChange([484,395,346,103,329], 4259)) # 11
+print(s.coinChange([1,2147483647], 2)) # 2
