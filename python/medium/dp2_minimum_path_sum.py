@@ -56,8 +56,6 @@ class Solution:
                 
                 dp[i][j] = min(dp[i][j-1], dp[i-1][j]) + num
                 
-        # print(dp[-1][-1])
-        
         return dp[-1][-1]
 
 
