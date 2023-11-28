@@ -40,12 +40,19 @@ class Solution:
             if longest_palindrom[1] - longest_palindrom[0] + 1 < palindrom[1] - palindrom[0] + 1:
                 longest_palindrom[0] = palindrom[0]
                 longest_palindrom[1] = palindrom[1]
+            
+            if pointer < longest_palindrom[1]:
+                pointer = longest_palindrom[1]
+            else:
+                pointer += 1
                 
-            pointer += 1
+        print(longest_palindrom)
             
         return s[longest_palindrom[0]:longest_palindrom[1]+1]
     
     
 s = Solution()
-print(s.longestPalindrome("babad")) # bab
-print(s.longestPalindrome("cbbd")) # bb
+# print(s.longestPalindrome("babad")) # bab
+# print(s.longestPalindrome("cbbd")) # bb
+print(s.longestPalindrome("aaaaa")) # aaaaa
+
