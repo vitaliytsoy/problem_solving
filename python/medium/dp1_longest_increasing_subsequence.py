@@ -19,6 +19,7 @@ Input: nums = [7,7,7,7,7,7,7]
 Output: 1
 """
 from typing import List
+import bisect
 
 class Solution:
     def find_LIS(self, nums, i, lis):  
@@ -63,6 +64,27 @@ class Solution:
             dp[i] = (lis, num)
             
         return max(dp)[0]
+    
+    # ---
+    
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        
+        dp = []
+        dp.append(nums[0])
+        
+        for num in nums: 
+            if num > dp[-1]:
+                dp.append(num)
+                continue
+            
+            dp[bisect.bisect_left(dp, num)] = num
+            
+            
+        return len(dp)
+
+    
     
 s = Solution()
 print(s.lengthOfLIS([10,9,2,5,3,7,101,18])) # 4
