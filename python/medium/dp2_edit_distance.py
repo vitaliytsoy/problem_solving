@@ -56,10 +56,39 @@ class Solution:
     def minDistance(self, word1: str, word2: str) -> int:        
         return self.find_min_distance(word1, word2, {})
     
-s = Solution()
-print(s.minDistance("intention", "execution")) # 5
-print(s.minDistance("horse", "ros")) # 3
-print(s.minDistance("horse", "hello")) # 4
-print(s.minDistance("", "")) # 0
-print(s.minDistance("abc", "abc")) # 0
+    # ---
+    
+    def minDistance(self, word1: str, word2: str) -> int:
+        dp = [[-1 for _ in range(len(word2) + 1)] for _ in range(len(word1) + 1)]
         
+        for i in range(len(word1) + 1):
+            dp[i][0] = i
+        for j in range(len(word2) + 1):
+            dp[0][j] = j
+            
+        for row in dp:
+            print(row)
+            
+        print('=====')
+        
+        for i in range(1, len(word1) + 1):
+            for j in range(1, len(word2) + 1):
+                if word1[i - 1] == word2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+                    
+            for row in dp:
+                print(row)
+            
+            print('=====')
+                    
+        return dp[-1][-1]
+
+    
+s = Solution()
+# print(s.minDistance("intention", "execution")) # 5
+print(s.minDistance("horse", "ros")) # 3
+# print(s.minDistance("horse", "hello")) # 4
+# print(s.minDistance("", "")) # 0
+# print(s.minDistance("abc", "abc")) # 0
