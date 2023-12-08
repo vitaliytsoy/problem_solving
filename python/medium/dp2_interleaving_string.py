@@ -33,8 +33,11 @@ Output: true
 """
 class Solution:
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
-        dp = [[True for _ in range(len(s2) + 1)] for _ in range(len(s1) + 1)]
+        if len(s1) + len(2) != len(s3):
+            return False
         
+        dp = [[True for _ in range(len(s2) + 1)] for _ in range(len(s1) + 1)]
+    
         for i in range(1, len(s1) + 1):
             dp[i][0] = dp[i-1][0] and s1[i-1] == s3[i-1] 
 
@@ -48,6 +51,31 @@ class Solution:
                 (dp[i][j-1] and s2[j-1] == s3[i-1+j])
             
         return dp[-1][-1]
+    
+    # ---
+    
+    def isInterleave(self, s1, s2, s3):
+        r, c, l= len(s1), len(s2), len(s3)
+        
+        if r + c != l:
+            return False
+        
+        stack, visited = [(0, 0)], set((0, 0))
+        
+        while stack:    
+            x, y = stack.pop()
+            
+            if x + y == l:
+                return True
+            
+            if x + 1 <= r and s1[x] == s3[x+y] and (x+1, y) not in visited:
+                stack.append((x+1, y)); visited.add((x+1, y))
+                
+            if y + 1 <= c and s2[y] == s3[x+y] and (x, y+1) not in visited:
+                stack.append((x, y+1)); visited.add((x, y+1))
+
+                
+        return False
 
                 
     
