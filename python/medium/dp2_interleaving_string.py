@@ -33,40 +33,22 @@ Output: true
 """
 class Solution:
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
-        s1_dp = [0] * len(s1)
-        s2_dp = [0] * len(s2)
-        s3_dp = [0] * len(s3)
+        dp = [[True for _ in range(len(s2) + 1)] for _ in range(len(s1) + 1)]
         
-        if len(s3) == 0:
-            return True
-        
-        if (s3[0] != s1[0] and s3[0] != s2[0]):
-            return False
-        
-        s1_p = 0
-        s2_p = 0
-        s1_dp[0] = 1
-        
-        for (index, letter) in enumerate(s3):
-            
-            print(s1_p)
-            print(s2_p)
-            
+        for i in range(1, len(s1) + 1):
+            dp[i][0] = dp[i-1][0] and s1[i-1] == s3[i-1] 
 
-            if s1_p < len(s1) and letter == s1[s1_p]:
-                s3_dp[index] = 's1'
-                s1_p += 1
-                
-            elif s2_p < len(s2) and letter == s2[s2_p]:
-                s3_dp[index] = 's2'
-                s2_p += 1
-                
-            # print(s1_dp)
-            # print(s2_dp)
-            print(s3_dp)
-            # print('===')
-                
-        return sum(s3_dp) == len(s3)
+        for j in range(1, len(s2)+1):
+            print(0, j - 1)
+            dp[0][j] = dp[0][j-1] and s2[j-1] == s3[j-1]
+            
+        for i in range(1, len(s1)+1):
+            for j in range(1, len(s2)+1):
+                dp[i][j] = (dp[i-1][j] and s1[i-1] == s3[i-1+j]) or \
+                (dp[i][j-1] and s2[j-1] == s3[i-1+j])
+            
+        return dp[-1][-1]
+
                 
     
 s = Solution()
