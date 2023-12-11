@@ -74,17 +74,31 @@ class Solution:
                 
         return result
     
+    # ---
+    
+
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1:
+            return s
+        
+        result = [''] * numRows
+        index, step = 0, 1
+
+        for letter in s:
+            result[index] += letter
+            
+            if index == 0:
+                step = 1
+            elif index == numRows - 1:
+                step = -1
+
+            index += step
+
+        return ''.join(result)
+                    
+                    
+    
 s = Solution()
 print(s.convert("PAYPALISHIRING", 3)) # PAHNAPLSIIGYIR
-print(s.convert("PAYPALISHIRING", 4)) # PINALSIGYAHRPI
-print(s.convert("A", 2)) # A
-
-
-
-# A     A
-# A   A A
-# A  A  A
-# A A   A
-# A     A
-
-# 5 3
+# print(s.convert("PAYPALISHIRING", 4)) # PINALSIGYAHRPI
+# print(s.convert("A", 2)) # A
