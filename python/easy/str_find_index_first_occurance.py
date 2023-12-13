@@ -45,7 +45,7 @@ class Solution:
 
         return -1
 
-        # --- 
+    # --- 
         
     def strStr(self, haystack: str, needle: str) -> int:
         for i in range(len(haystack)):
