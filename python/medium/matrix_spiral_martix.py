@@ -65,6 +65,11 @@ class Solution:
         self.make_spiral(matrix, 0, 0, 'right', result)
         
         return result
+    
+    # ---
+    
+    def spiralOrder(self, matrix):
+        return matrix and [*matrix.pop(0)] + self.spiralOrder([*zip(*matrix)][::-1])
 
 
     
@@ -72,9 +77,3 @@ s = Solution()
 # print(s.spiralOrder([[1,2,3],[4,5,6],[7,8,9]])) # [1,2,3,6,9,8,7,4,5]
 # print(s.spiralOrder([[1,2,3,4],[5,6,7,8],[9,10,11,12]])) # [1,2,3,4,8,12,11,10,9,5,6,7]
 print(s.spiralOrder([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])) # 
-
-# [1,2,3,4],
-# [5,6,7,8],
-# [9,10,11,12],
-# [13,14,15,16]
-# 1 2 3 4 8 12 16 15 14 13 9 5 6 7
