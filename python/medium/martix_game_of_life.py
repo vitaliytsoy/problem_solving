@@ -50,8 +50,6 @@ class Solution:
             for j in range(len(board[0])):
                 alive[i][j] = self.get_alive_neighbours_count(board, i, j)
                 
-                
-                
         for i in range(len(board)):
             for j in range(len(board[0])):
                 if alive[i][j] == 2 or alive == 3:
@@ -62,13 +60,52 @@ class Solution:
                     continue
                 
                 board[i][j] = 0
+                
+                
+        # ---
+        
+    def get_alive_neighbours_count(self, board, i, j):
+        count = 0
+        
+        for neigbours in neighbours:
+            i_mod, j_mod = neigbours
+            
+            if i + i_mod < 0 or i + i_mod >= len(board):
+                continue
+            
+            if j + j_mod < 0 or j + j_mod >= len(board[0]):
+                continue
+            
+            if (board[i + i_mod][j+j_mod] >> 0) & 1 == 1:
+                count += 1
+            
+        return count
+        
+    def gameOfLife(self, board: List[List[int]]) -> None:
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                alive_n = self.get_alive_neighbours_count(board, i, j)
+                
+                if (board[i][j] >> 0):  
+                    board[i][j] = board[i][j] | (1 << 1)
+                else:
+                    board[i][j] = board[i][j] & ~(1 << 1)
                     
                 
-        print(board)
+                if alive_n == 2 or board == 3:
+                    continue
                 
+                if alive_n == 3:
+                    board[i][j] = board[i][j] | (1 << 1)
+                    continue
+
+                board[i][j] = board[i][j] & ~(1 << 1)
+            
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                board[i][j] = (board[i][j] >> 1) & 1
                 
-        
 s = Solution()
-print(s.gameOfLife([[0,1,0],[0,0,1],[1,1,1],[0,0,0]]))
-# print(s.gameOfLife([[1,1],[1,0]]))
+print(s.gameOfLife([[0,1,0],[0,0,1],[1,1,1],[0,0,0]])) # [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+print(s.gameOfLife([[1,1],[1,0]])) # [[1,1],[1,1]]
         
