@@ -71,7 +71,7 @@ class Solution:
         return self.find_three_sum(nums, 0, 1, 2, [], set())
     
     
-    # ---
+    # --- divide and search
     
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         negative, zero, positive = [], [], []
@@ -136,6 +136,46 @@ class Solution:
                 p2 = p1 + 1
                 
         return result
+    
+    # --- two pointer
+    
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        result = []
+        
+        if len(nums) < 3 or nums[0] > 0: 
+            return result
+        
+        for i in range(len(nums)):
+            start, end = i + 1, len(nums) - 1
+            s = 0
+            
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            
+            while start < end:
+                s = nums[i] + nums[start] + nums[end]
+                
+                if s > 0:
+                    end -= 1
+                    continue
+                    
+                if s < 0:
+                    start += 1
+                    continue
+                
+                result.append([nums[i], nums[start], nums[end]])
+                last_start_occurence = nums[start]
+                last_end_occurence = nums[end]
+                
+                while(start < end and nums[start] == last_start_occurence):
+                    start += 1
+
+                while(start < end and nums[end] == last_end_occurence):
+                    end -= 1
+                
+        return result
+    
     
     
 s = Solution()
