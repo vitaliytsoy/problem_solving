@@ -33,6 +33,8 @@ Explanation: The only possible triplet sums up to 0.
 from typing import List
 
 class Solution:
+    # Time Limit
+    
     def find_three_sum(self, nums, i, j, k, result, visited):
         if i >= len(nums) or j >= len(nums) or k >= len(nums):
             return result
@@ -40,13 +42,22 @@ class Solution:
         if j >= k or i >= j:
             return result
         
-        h = ''.join(sorted([str(x) for x in [nums[i], nums[j], nums[k]]]))
-        
-        if (h in visited):
+        if i in visited:
+            self.find_three_sum(nums, i + 1, j, k, result, visited)
             return result
-    
+            
+        if j in visited:
+            self.find_three_sum(nums, i, j + 1, k, result, visited)
+            return result
+            
+        if k in visited:
+            self.find_three_sum(nums, i, j, k + 1, result, visited)
+            return result
+        
         if (nums[i] + nums[j] + nums[k] == 0):
-            visited.add(h)
+            visited.add(i)
+            visited.add(j)
+            visited.add(k)
             result.append([nums[i], nums[j], nums[k]])
             
         self.find_three_sum(nums, i + 1, j, k, result, visited)
@@ -56,7 +67,76 @@ class Solution:
         return result
     
     def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
         return self.find_three_sum(nums, 0, 1, 2, [], set())
+    
+    
+    # ---
+    
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        negative, zero, positive = [], [], []
+        result = set()
+        
+        nums.sort()
+        
+        for num in nums:
+            if num < 0:
+                negative.append(num)
+                continue
+                
+            if num > 0:
+                positive.append(num)
+                continue
+            
+            zero.append(num)
+            
+        n_unique, p_unique = set(negative), set(positive)
+
+        if len(zero) >= 3:
+            result.add((0,0,0))
+            
+        if (len(positive) == 0 or len(negative) == 0):
+            return result
+            
+        if len(zero) >= 1:
+            for num in n_unique:
+                if abs(num) in p_unique:
+                    result.add((0, num, abs(num)))
+                    
+                    
+        p1, p2 = 0, 1
+        
+        if len(negative) >= 2:
+            while p1 < len(negative) - 1:
+                while p2 < len(negative):
+                    absolute = abs(negative[p1] + negative[p2])
+                    
+                    if absolute in p_unique:
+                        result.add((negative[p1], negative[p2], absolute))
+                    
+                    p2 += 1
+                    
+                p1 += 1
+                p2 = p1 + 1
+                
+        
+        p1, p2 = 0, 1  
+                
+        if len(positive) >= 2:
+            while p1 < len(positive) - 1:
+                while p2 < len(positive):
+                    absolute = positive[p1] + positive[p2]
+                    
+                    if -absolute in n_unique:
+                        result.add((-absolute, positive[p1], positive[p2], ))
+                    
+                    p2 += 1
+                    
+                p1 += 1
+                p2 = p1 + 1
+                
+        return result
+    
     
 s = Solution()
 print(s.threeSum([-1,0,1,2,-1,-4]))
