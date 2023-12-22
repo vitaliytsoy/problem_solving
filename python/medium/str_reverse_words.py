@@ -29,7 +29,7 @@ Explanation: You need to reduce multiple spaces between two words to a single sp
 class Solution:
     def reverseWords(self, s: str) -> str:
         splited = s.split(' ')
-        result = []
+        result = ''
         
         for i in range(1, len(splited) + 1):
             word = splited[-i]
