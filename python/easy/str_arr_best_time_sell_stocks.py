@@ -32,7 +32,27 @@ class Solution:
                 profit = max(profit, price_sell - price_buy)
                 
         return profit
+
+    # ---
+    
+    def maxProfit(self, prices: List[int]) -> int:
+        buy_pointer = 0
+        sell_pointer = 1
+        profit = 0
+        
+        while sell_pointer < len(prices):
+            if prices[sell_pointer] < prices[buy_pointer]:
+                buy_pointer = sell_pointer
+                sell_pointer += 1
+                continue
+            
+            if prices[sell_pointer] - prices[buy_pointer] > profit:
+                profit = prices[sell_pointer] - prices[buy_pointer]
+                
+            sell_pointer += 1
+                        
+        return profit
     
 s = Solution()
-print(s.maxProfit([7,1,5,3,6,4]))
+print(s.maxProfit([7,1,5,3,6,4])) # 5
 print(s.maxProfit([7,6,4,3,1])) # 0
