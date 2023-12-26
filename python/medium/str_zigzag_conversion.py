@@ -93,11 +93,10 @@ class Solution:
                 step = -1
 
             index += step
+            
 
         return ''.join(result)
                     
-                    
-    
 s = Solution()
 print(s.convert("PAYPALISHIRING", 3)) # PAHNAPLSIIGYIR
 # print(s.convert("PAYPALISHIRING", 4)) # PINALSIGYAHRPI
