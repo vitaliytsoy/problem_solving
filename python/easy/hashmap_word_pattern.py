@@ -18,6 +18,8 @@ Example 3:
 Input: pattern = "aaaa", s = "dog cat cat dog"
 Output: false
 """
+from collections import defaultdict
+
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
         l_mapper = {}
@@ -44,6 +46,28 @@ class Solution:
             w_mapper[word] = letter
 
         return True
+    
+    # ---
+    
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        l_mapper = defaultdict(lambda: -1)
+        w_mapper = defaultdict(lambda: -1)
+        words = s.split(' ')
+        
+        if len(pattern) != len(words):
+            return False
+        
+        for i in range(len(pattern)):
+            letter = pattern[i]
+            word = words[i]
+            
+            if w_mapper[word] != l_mapper[letter]:
+                return False
+            
+            l_mapper[letter] = i
+            w_mapper[word] = i
+
+        return True
 
     
 s = Solution()
@@ -52,3 +76,4 @@ print(s.wordPattern("abba", "dog cat cat fish")) # False
 print(s.wordPattern("aaaa", "dog cat cat dog")) # False
 print(s.wordPattern("bcbd", "dog cat dog fish")) # True
 print(s.wordPattern("abba", "dog dog dog dog")) # False
+print(s.wordPattern("abc", "b c a")) # True
