@@ -33,6 +33,22 @@ class Solution:
             mapper[letter] -= 1
             
         return functools.reduce(lambda acc, item: False if not acc or item != 0 else True, mapper.values(), True)
+    
+    # ---
+    
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+         
+        s_sorted = list(s).sort()
+        t_sorted = list(t).sort()
+        
+        for i in range(len(s_sorted)):
+            if s_sorted[i] != t_sorted[i]:
+                return False
+        
+        return True
+    
 
 s = Solution()
 print(s.isAnagram("rat", "car")) # False
