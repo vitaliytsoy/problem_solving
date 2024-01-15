@@ -29,15 +29,12 @@ class Solution:
             s_word = ''.join(sorted(strs[i]))
             
             if s_word in mapper:
-                mapper[s_word].append(i)
+                mapper[s_word].append(strs[i])
                 continue
             
-            mapper[s_word] = [i]
+            mapper[s_word] = [strs[i]]
             
-        for indexes in mapper.values():
-            result.append(list(map(lambda x: strs[x], indexes)))
-            
-        return result
+        return list(mapper.values())
     
     
 s = Solution()
