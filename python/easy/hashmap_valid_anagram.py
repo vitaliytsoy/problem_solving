@@ -40,8 +40,11 @@ class Solution:
         if len(s) != len(t):
             return False
          
-        s_sorted = list(s).sort()
-        t_sorted = list(t).sort()
+        s_sorted = list(s)
+        t_sorted = list(t)
+        
+        s_sorted.sort()
+        t_sorted.sort()
         
         for i in range(len(s_sorted)):
             if s_sorted[i] != t_sorted[i]:
