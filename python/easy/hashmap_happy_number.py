@@ -45,8 +45,23 @@ class Solution:
             
             s.add(num)
             num = squared
-            print(squared)
             
+        return False
+    
+    # -- 
+    
+    def isHappy(self, n: int) -> bool:
+        slow = self.square_sum(n)
+        fast = self.square_sum(slow)
+        
+        while slow != fast:
+            slow = self.square_sum(slow)
+            fast = self.square_sum(fast)
+            fast = self.square_sum(fast)
+
+        if (slow == 1 or fast == 1):
+            return True
+
         return False
             
 s = Solution()
