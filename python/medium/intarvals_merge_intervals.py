@@ -51,8 +51,22 @@ class Solution:
         return result
     
     
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        result = []
+        
+        for interval in sorted(intervals, key=lambda i: i[0]):
+            if result and result[-1][1] >= interval[0]:
+                result[-1][1] = max(result[-1][1], interval[1])
+            else:
+                result.append(interval)
+
+        return result
+    
+    # ---
+    
+    
 s = Solution()
-# print(s.merge([[1,3],[2,6],[8,10],[15,18]])) # [[1,6],[8,10],[15,18]]
-# print(s.merge([[1,4],[4,5]])) # [[1,4],[4,5]]
-# print(s.merge([[1,5],[6,7]])) # [[1,5],[6,7]]
+print(s.merge([[1,3],[2,6],[8,10],[15,18]])) # [[1,6],[8,10],[15,18]]
+print(s.merge([[1,4],[4,5]])) # [[1,4],[4,5]]
+print(s.merge([[1,5],[6,7]])) # [[1,5],[6,7]]
 print(s.merge([[2,3],[4,5],[6,7],[8,9],[1,10]])) # [[1,10]]
