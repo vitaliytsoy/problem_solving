@@ -37,34 +37,40 @@ class Solution:
     def merge_intervals(self, left: List[int], right: List[int]) -> bool:
         return [min(left[0], right[0]), max(left[1], right[1])]
     
-    
-    def find_max_intersection(self, points, intersection, start_at):
-        for i in range(start_at, len(points)):
-            if self.is_intersecting(points[0], points[i]):
-                copy = intersection.copy()
-                
-                copy.append(i)
-                self.find_max_intersection(points, copy)
+    def find_largest_baloon_intersection(self, points: List[List[int]]) -> List[int]: 
+        intersections = []
+        intersections.append(points[0])
+
+        for i in range(1, len(points)):
+            is_intersected = True
+            interval = points[i]
             
-        
+            for intersection in intersections:
+                if not self.is_intersecting(intersection, interval):
+                    is_intersected = False
+                    break
+                
+            if is_intersected:
+                intersections.append(interval)
+                    
+        return intersections
 
     def findMinArrowShots(self, points: List[List[int]]) -> int:
         if len(points) <= 1:
             return len(points)
         
-        outside = set([])
+        points.sort(key=lambda x: x[1])    
+        largest_intersection = self.find_largest_baloon_intersection(points)
         
-        for i in range(1, len(points)):
-            if self.is_intersecting(points[0], points[i]):
-                continue
-            
-            outside.add(i)
-            
-        return 1 + self.findMinArrowShots([points[i] for i in outside])
+        print('=====')
+        print(largest_intersection)
+        print(list(filter(lambda x: x not in largest_intersection, points)))
+        
+        return 1 + self.findMinArrowShots(list(filter(lambda x: x not in largest_intersection, points)))
             
     
 s = Solution()
-print(s.findMinArrowShots([[10,16],[2,8],[1,6],[7,12]])) # 2 
-print(s.findMinArrowShots([[1,2],[3,4],[5,6],[7,8]])) # 4
-print(s.findMinArrowShots([[1,2],[2,3],[3,4],[4,5]])) # 2
-print(s.findMinArrowShots([[3,9],[7,12],[3,8],[6,8],[9,10],[2,9],[0,9],[3,9],[0,6],[2,8]]))
+# print(s.findMinArrowShots([[10,16],[2,8],[1,6],[7,12]])) # 2 
+# print(s.findMinArrowShots([[1,2],[3,4],[5,6],[7,8]])) # 4
+# print(s.findMinArrowShots([[1,2],[2,3],[3,4],[4,5]])) # 2
+print(s.findMinArrowShots([[3,9],[7,12],[3,8],[6,8],[9,10],[2,9],[0,9],[3,9],[0,6],[2,8]])) # 2
