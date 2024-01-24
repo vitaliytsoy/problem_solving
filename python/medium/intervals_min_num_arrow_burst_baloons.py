@@ -60,6 +60,7 @@ class Solution:
             return len(points)
         
         points.sort(key=lambda x: x[1])    
+        
         largest_intersection = self.find_largest_baloon_intersection(points)
         
         print('=====')
@@ -67,10 +68,31 @@ class Solution:
         print(list(filter(lambda x: x not in largest_intersection, points)))
         
         return 1 + self.findMinArrowShots(list(filter(lambda x: x not in largest_intersection, points)))
+    
+    
+    # --- 
+    
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        if len(points) <= 1:
+            return len(points)
+        
+        points.sort(key=lambda x: x[1])    
+        
+        arrow_count = 1
+        arrow_position = points[0][1]
+        
+        for i in range(1, len(points)):
+            if points[i][0] <= arrow_position:
+                continue
+            
+            arrow_position = points[i][1]
+            arrow_count += 1
+        
+        return arrow_count
             
     
 s = Solution()
-# print(s.findMinArrowShots([[10,16],[2,8],[1,6],[7,12]])) # 2 
-# print(s.findMinArrowShots([[1,2],[3,4],[5,6],[7,8]])) # 4
-# print(s.findMinArrowShots([[1,2],[2,3],[3,4],[4,5]])) # 2
+print(s.findMinArrowShots([[10,16],[2,8],[1,6],[7,12]])) # 2 
+print(s.findMinArrowShots([[1,2],[3,4],[5,6],[7,8]])) # 4
+print(s.findMinArrowShots([[1,2],[2,3],[3,4],[4,5]])) # 2
 print(s.findMinArrowShots([[3,9],[7,12],[3,8],[6,8],[9,10],[2,9],[0,9],[3,9],[0,6],[2,8]])) # 2
