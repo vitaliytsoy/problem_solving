@@ -25,37 +25,56 @@ class ListNode:
         
 
 class Solution:
+
     def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
         left, right = [], []
         pointer = head
-        
-        if head == None:
-            return None
+
     
-        while pointer.next:
+        while pointer:
             if pointer.val < x:
                 left.append(pointer)
             else:
                 right.append(pointer)
                 
             pointer = pointer.next
-            
+
         new_head = ListNode()
-        
+        pointer  = new_head
+
         if left:
-            pointer = left[0]
-            
-            while pointer.next:
-                new_head.next = pointer
-                new_head = new_head.next
+            for node in left:
+                pointer.next = node
                 pointer = pointer.next
 
         if right:
-            pointer = right[0]
-            
-            while pointer.next:
-                new_head.next = pointer
-                new_head = new_head.next
+            for node in right:
+                pointer.next = node
                 pointer = pointer.next
-                
+
+        pointer.next = None
+
         return new_head.next
+    
+    # ---
+
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        left = ListNode(0)
+        right = ListNode(0)
+        p1, p2 = left, right
+
+        while head:
+            if head.val < x:
+                p1.next = head
+                p1 = p1.next
+            else:
+                p2.next = head
+                p2 = p2.next
+
+            head = head.next
+        
+        p2.next = None
+        p1.next = right.next
+        right.next = None
+
+        return left.next
