@@ -21,6 +21,7 @@ Input: root = [1,2], p = 1, q = 2
 Output: 1
 """
 from typing import Optional
+from collections import deque
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -34,15 +35,20 @@ class Solution:
         return True
         
     
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':        
-        if self.is_node_in_subtree(q, p):
-            return q.val
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root or root == p or root == q:
+            return root
         
-        if self.is_node_in_subtree(p, q):
-            return p.val
-
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
         
-
-            
-        pass
+        if left and right:
+            return root
         
+        if left and not right:
+            return left
+        
+        if not left and right:
+            return right
+        
+        return None    
