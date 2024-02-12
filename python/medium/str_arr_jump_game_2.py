@@ -60,9 +60,29 @@ class Solution:
                 if i + j >= len(nums):
                     break
                 
+                if min_jump_reach[i + j] != sys.maxsize:
+                    continue
+                
                 min_jump_reach[i + j] = min(min_jump_reach[i] + 1, min_jump_reach[i + j])
                 
         return min_jump_reach[-1]
+    
+    
+    # --- Greedy
+    
+    def jump(self, nums: List[int]) -> int:
+        max_reach = 0
+        last_p = 0
+        counter = 0
+        
+        for i in range(len(nums) - 1):
+            max_reach = max(max_reach, i + nums[i])
+            
+            if i == last_p:
+                counter += 1
+                last_p = max_reach
+        
+        return counter
                 
     
 s = Solution()
