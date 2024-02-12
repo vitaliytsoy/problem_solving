@@ -42,13 +42,28 @@ class Solution:
             
             distance = nums[pointer]
             
-
-            
             for i in range(1, distance + 1):
                 stack.append((counter + 1, pointer + i))
                 
         return min_count
     
+    # ---
+    
+    def jump(self, nums: List[int]) -> int:
+        min_jump_reach = [sys.maxsize] * len(nums)
+        min_jump_reach[0] = 0
+        
+        for i in range(len(nums)):
+            distance = nums[i]
+            
+            for j in range(1, distance + 1):
+                if i + j >= len(nums):
+                    break
+                
+                min_jump_reach[i + j] = min(min_jump_reach[i] + 1, min_jump_reach[i + j])
+                
+        return min_jump_reach[-1]
+                
     
 s = Solution()
 print(s.jump([2,3,1,1,4])) # 2
