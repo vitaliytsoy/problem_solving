@@ -77,7 +77,7 @@ class Solution:
         
         for i in range(len(nums) - 1):
             max_reach = max(max_reach, i + nums[i])
-            
+
             if i == last_p:
                 counter += 1
                 last_p = max_reach
