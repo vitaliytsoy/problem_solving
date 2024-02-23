@@ -63,7 +63,7 @@ class Solution:
                 r_max = arr[i]
             
         return (l_max, r_max)
-    
+
     def trap(self, height: List[int]) -> int:
         trapped = 0
         
@@ -75,6 +75,40 @@ class Solution:
                 continue
             
             trapped += min(left, right) - h
+        
+        return trapped
+    
+    # ---
+    
+    def trap(self, height: List[int]) -> int:
+        trapped = 0
+        max_height = height[0]
+        l_max_arr = [0] * len(height) 
+        r_max_arr = [0] * len(height) 
+        
+        for i in range(1, len(height) - 1):
+            l_max_arr[i] = max_height
+            
+            if height[i] > max_height:
+                max_height = height[i]
+                
+        max_height = height[-1]
+        
+        for i in range(len(height) - 1, -1, -1):
+            r_max_arr[i] = max_height
+            
+            if height[i] > max_height:
+                max_height = height[i]
+
+        for i in range(1, len(height) - 1):
+            h = height[i]
+            l_max = l_max_arr[i]
+            r_max = r_max_arr[i]
+            
+            if h >= l_max or h >= r_max:
+                continue
+            
+            trapped += min(l_max, r_max) - h
         
         return trapped
       
