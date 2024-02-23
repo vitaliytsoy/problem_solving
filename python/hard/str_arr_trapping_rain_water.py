@@ -45,7 +45,39 @@ class Solution:
                 if height[i] >= 1:
                     height[i] -= 1
     
-        return trapped            
+        return trapped
+    
+    
+    # ---   
+    
+    def find_highest(self, arr, i):
+        l_max, r_max = 0, 0
+        
+        for i in range(0, i):
+            if arr[i] > l_max:
+                l_max = arr[i]
+                
+                
+        for i in range(i + 1, len(arr)):
+            if arr[i] > r_max:
+                r_max = arr[i]
+            
+        return (l_max, r_max)
+    
+    def trap(self, height: List[int]) -> int:
+        trapped = 0
+        
+        for i in range(1, len(height) - 1):
+            h = height[i]
+            left, right = self.find_highest(height, i)
+            
+            if h >= left or h >= right:
+                continue
+            
+            trapped += min(left, right) - h
+        
+        return trapped
+      
     
     
 s = Solution()
