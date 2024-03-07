@@ -107,15 +107,64 @@ class Solution:
         
         return self.evaluate(expression)
     
+    # --- stack ---
+    
+    def update_stack(self, stack, operator, number):
+        if operator == '+':
+            stack.append(number)
+        elif operator == '-':
+            stack.append(-number)
+        elif operator == '*':
+            stack.append(stack.pop() * number)
+        elif operator == '/':
+            stack.append(stack.pop() / number)
+            
+        return stack
+    
+    
+    def evaluate(self, s, i):
+        pointer = i
+        number = 0
+        stack = []
+        operator = '+'
+        
+        while pointer < len(s):
+            char = s[pointer]
+            
+            if char.isdigit():
+                number = number * 10 + int(char)
+            elif char in self.operations:
+                self.update_stack(stack, operator, number)
+                    
+                operator = char
+                number = 0
+            elif char == '(':
+                num, n_p = self.evaluate(s, pointer + 1)
+                
+                pointer = n_p
+                number = num
+            elif char == ')':
+                self.update_stack(stack, operator, number)
+                
+                return sum(stack), pointer
+            
+            pointer += 1
+            
+        self.update_stack(stack, operator, number)
+            
+        return sum(stack)
+    
+    def calculate(self, s: str) -> int:
+        return self.evaluate(s, 0)
+    
 s = Solution()
 
-
-# print(s.evaluate(" 2-1 + 2 "))
-# print(s.calculate("1")) # 1
-# print(s.calculate("1 + 1")) # 2 
-# print(s.calculate("-2 - 3")) # -5
-# print(s.calculate("-2 + 4")) # 2
-# print(s.calculate(" 2-1 + 2 ")) # 3
-# print(s.calculate("(1+(4+5+2)-3)+(6+8)")) # 23
-# print(s.calculate("1-(     -2)")) # 3
-# print(s.calculate("5+3-4-(1+2-7+(10-1+3+5+(3-0+(8-(3+(8-(10-(6-10-8-7+(0+0+7)-10+5-3-2+(9+0+(7+(2-(2-(9)-2+5+4+2+(2+9+1+5+5-8-9-2-9+1+0)-(5-(9)-(0-(7+9)+(10+(6-4+6))+0-2+(10+7+(8+(7-(8-(3)+(2)+(10-6+10-(2)-7-(2)+(3+(8))+(1-3-8)+6-(4+1)+(6))+6-(1)-(10+(4)+(8)+(5+(0))+(3-(6))-(9)-(4)+(2))))))-1)))+(9+6)+(0))))+3-(1))+(7))))))))")) # -35
+# print(s.evaluate(" 2-1 + 2 ")) # 3
+print(s.calculate("1")) # 1
+print(s.calculate("1 + 1")) # 2 
+print(s.calculate("-2 - 3")) # -5
+print(s.calculate("-2 + 4")) # 2
+print(s.calculate(" 2-1 + 2 ")) # 3
+print(s.calculate("(1+(4+5+2)-3)+(6+8)")) # 23
+print(s.calculate("1-(     -2)")) # 3
+print(s.calculate("5+3-4-(1+2-7+(10-1+3+5+(3-0+(8-(3+(8-(10-(6-10-8-7+(0+0+7)-10+5-3-2+(9+0+(7+(2-(2-(9)-2+5+4+2+(2+9+1+5+5-8-9-2-9+1+0)-(5-(9)-(0-(7+9)+(10+(6-4+6))+0-2+(10+7+(8+(7-(8-(3)+(2)+(10-6+10-(2)-7-(2)+(3+(8))+(1-3-8)+6-(4+1)+(6))+6-(1)-(10+(4)+(8)+(5+(0))+(3-(6))-(9)-(4)+(2))))))-1)))+(9+6)+(0))))+3-(1))+(7))))))))")) # -35
