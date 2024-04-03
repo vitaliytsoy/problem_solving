@@ -15,9 +15,17 @@ Input: n = 1
 Output: 1
 """
 from copy import deepcopy
+from collections import deque
+
+def print_m(board):
+    print('========')
+    for row in board:
+        print(row)
 
 class Solution:
-    def place_queen(self, board, i, j):        
+    def place_queen(self, board, i, j):
+        board = deepcopy(board) 
+
         for n in range(len(board)):
             board[n][j] = 1
             board[i][n] = 1
@@ -44,20 +52,43 @@ class Solution:
             
         return s < (len(board) * len(board))
     
-    def find_solution(self, board):
-        if not self.is_board_has_empty(board):
-            return 0 
+    def find_solution(self, board, queens_count):
+        solutions = 0
+        stack = deque()
+        visited = set()
         
-        for i in range(len(board)):
-            for j in range(len(board[0])):
-                cell = board[i][j]
+        stack.append([deepcopy(board), queens_count, []])
+        
+        while stack:
+            board, q_left, queens = stack.pop()
+ 
+            if q_left == 0:
+                signature = str(sorted(queens))
                 
-                if cell == 1:
+                if signature in visited:
                     continue
                 
-                self.place_queen(board, i, j)
-                self.find_solution(deepcopy(board))
-        
+                solutions += 1
+                visited.add(signature)
+                    
+                continue
+            
+            
+            for i in range(len(board)):
+                for j in range(len(board[0])):
+                    cell = board[i][j]
+                    
+                    if cell == 1:
+                        continue
+                    
+                    new_board = self.place_queen(board, i, j)
+                    new_queens = queens.copy()
+                    
+                    new_queens.append((i, j))
+
+                    stack.append([new_board, q_left - 1, new_queens])
+                
+        return solutions
     
     def totalNQueens(self, n: int) -> int:
         if n == 0 or n == 1:
@@ -65,36 +96,15 @@ class Solution:
         
         board = [[0] * n for _ in range(n)]
         
-        return self.find_solution(board)
-        
-        
-        
+        return self.find_solution(board, n)
+
 # 0 0 0 0
 # 0 0 1 0
 # 0 0 0 0
 # 0 0 0 0
 
-# 0 3
-# 1 2
-# 2 1
-# 3 0
-
-# 0 1
-# 1 2
-# 2 3  
 s = Solution()
-# print(s.totalNQueens(4)) # 2
-# print(s.totalNQueens(1)) # 1
-
-board = [[0] * 4 for _ in range(4)]
-
-
-print(board)
-print()
-
-for row in s.place_queen(board, 2, 2):
-    print(row)
-    
-    
-sum
-print()
+print(s.totalNQueens(4)) # 2
+print(s.totalNQueens(1)) # 1
+print(s.totalNQueens(5)) # 10
+print(s.totalNQueens(6)) # 4
