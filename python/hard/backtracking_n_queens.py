@@ -97,7 +97,43 @@ class Solution:
         board = [[0] * n for _ in range(n)]
         
         return self.find_solution(board, n)
+    
+    # ---
+    
+    count = 0
+    
+    def totalNQueens(self, n: int) -> int:
+        self.count = 0
+        cols = [False] * n
+        d1 = [False] * (n * 2)
+        d2 = [False] * (n * 2)
+        
+        self.find_solution(0, cols, d1, d2, n)
+        
+        return self.count
 
+    
+    def find_solution(self, row, cols, d1, d2, n):
+        if row == n:
+            self.count += 1
+
+        for col in range(n):
+            diag1 = col - row + n
+            diag2 = col + row
+            
+            if cols[col] or d1[diag1] or d2[diag2]:
+                continue
+            
+            cols[col] = True
+            d1[diag1] = True
+            d2[diag2] = True
+            
+            self.find_solution(row + 1, cols, d1, d2, n)
+            
+            cols[col] = False
+            d1[diag1] = False
+            d2[diag2] = False
+            
 # 0 0 0 0
 # 0 0 1 0
 # 0 0 0 0
