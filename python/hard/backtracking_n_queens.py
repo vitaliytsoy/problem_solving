@@ -100,22 +100,19 @@ class Solution:
     
     # ---
     
-    count = 0
-    
     def totalNQueens(self, n: int) -> int:
-        self.count = 0
         cols = [False] * n
         d1 = [False] * (n * 2)
         d2 = [False] * (n * 2)
         
-        self.find_solution(0, cols, d1, d2, n)
-        
-        return self.count
+        return self.find_solution(0, cols, d1, d2, n)
 
     
     def find_solution(self, row, cols, d1, d2, n):
+        count = 0
+        
         if row == n:
-            self.count += 1
+            return 1
 
         for col in range(n):
             diag1 = col - row + n
@@ -128,11 +125,13 @@ class Solution:
             d1[diag1] = True
             d2[diag2] = True
             
-            self.find_solution(row + 1, cols, d1, d2, n)
+            count += self.find_solution(row + 1, cols, d1, d2, n)
             
             cols[col] = False
             d1[diag1] = False
             d2[diag2] = False
+            
+        return count
             
 # 0 0 0 0
 # 0 0 1 0
