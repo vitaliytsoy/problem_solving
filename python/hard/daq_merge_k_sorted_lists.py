@@ -47,9 +47,16 @@ class Solution:
             for i in range(len(lists)):
                 node = lists[i]
                 
-                if min_node == None or node.val <= min_node.val:
+                if node and min_node:
+                    if node.val <= min_node.val:
+                        min_node = node
+                        min_node_index = i
+                    continue
+                
+                if min_node_index == -1:
                     min_node = node
-                    min_node_index = i
+                    min_node_index = i 
+
                         
             if min_node_index != -1 and min_node == None:
                 lists.pop(min_node_index)
@@ -67,7 +74,10 @@ class Solution:
         return new_head.next
     
     
-test = [[1,4,5],[1,3,4],[2,6]]
+# test = [[1,4,5],[1,3,4],[2,6]]
+# test = [[2],[],[-1]]
+# test = [[],[-1,5,11],[],[6,10]]
+
 
 for i in range(len(test)):
     l = test[i]
