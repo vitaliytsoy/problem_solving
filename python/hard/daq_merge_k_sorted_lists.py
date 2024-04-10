@@ -74,36 +74,38 @@ class Solution:
         return new_head.next
     
     
-# test = [[1,4,5],[1,3,4],[2,6]]
-# test = [[2],[],[-1]]
-# test = [[],[-1,5,11],[],[6,10]]
-
-
-for i in range(len(test)):
-    l = test[i]
-    h = ListNode()
-    p = h
     
-    for j in range(len(l)):
-        n = l[j]
-        new_node = ListNode(n)
-        p.next = new_node
-        p = p.next
+def convertIntListToNodeList(int_list):
+    for i in range(len(int_list)):
+        l = int_list[i]
+        h = ListNode()
+        p = h
         
-    test[i] = h.next
+        for j in range(len(l)):
+            n = l[j]
+            new_node = ListNode(n)
+            p.next = new_node
+            p = p.next
+        
+        int_list[i] = h.next
     
+    return int_list
     
-    
-def print_list(node):
+def print_nodes(node):
     p = node
+    string = '';
     
     while p:
-        print(p.val)
+        string += f"{p.val} "
         p = p.next
         
+    print(string)
+    
         
 s = Solution()
-print_list(s.mergeKLists(test))
+print_nodes(s.mergeKLists(convertIntListToNodeList([[],[-1,5,11],[],[6,10]])))
+print_nodes(s.mergeKLists(convertIntListToNodeList([[2],[],[-1]])))
+print_nodes(s.mergeKLists(convertIntListToNodeList([[1,4,5],[1,3,4],[2,6]])))
 
         
 
