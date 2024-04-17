@@ -68,6 +68,36 @@ class Solution:
         return result_capital
 
     # ---
+    
+    def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
+        projects = []
+        c_capital = w
+        
+        for i in range(len(capital)):
+            projects.append([profits[i], capital[i], False])
+            
+        projects.sort(reverse=True)        
+
+        for i in range(k):
+            pointer = 0    
+            
+            while pointer < len(projects):
+                profit, r_capital, is_used = projects[pointer]
+                
+                if c_capital >= r_capital and not is_used:
+                    c_capital += profit
+                    projects[pointer][2] = True
+                    break
+                
+                pointer += 1
+                
+            if pointer >= len(projects):
+                break
+                
+        return c_capital
+    
+    
+    # ---
 
     def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
         projects = []
