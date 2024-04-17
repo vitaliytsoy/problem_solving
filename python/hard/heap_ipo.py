@@ -26,6 +26,7 @@ Output: 6
 """
 from typing import List
 from collections import deque
+import heapq
 
 class Solution:
     def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
@@ -66,9 +67,34 @@ class Solution:
                     
         return result_capital
 
+    # ---
+
+    def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
+        projects = []
+        result_capital = w
+        max_profit = []
+        
+        for i in range(len(capital)):
+            projects.append((capital[i], profits[i]))
+            
+        projects.sort()
+        
+        pointer = 0
+        
+        for i in range(k):
+            while pointer < len(projects) and projects[pointer][0] <= result_capital:
+                heapq.heappush(max_profit, -projects[pointer][1])
+                pointer += 1
+                
+            if not max_profit:
+                break
+                
+            result_capital += -heapq.heappop(max_profit)
+            
+        return result_capital
 
 s = Solution()
-# print(s.findMaximizedCapital(2, 0, [1,2,3], [0,1,1])) # 4
-# print(s.findMaximizedCapital(3, 0, [1,2,3], [0,1,2])) # 6
+print(s.findMaximizedCapital(2, 0, [1,2,3], [0,1,1])) # 4
+print(s.findMaximizedCapital(3, 0, [1,2,3], [0,1,2])) # 6
 print(s.findMaximizedCapital(1, 0, [1,2,3], [1,1,2])) # 0
-# print(s.findMaximizedCapital(2, 0, [1,2,3], [0,1,1])) # 4
+print(s.findMaximizedCapital(2, 0, [1,2,3], [0,1,1])) # 4
