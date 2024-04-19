@@ -26,3 +26,31 @@ Input: prices = [7,6,4,3,1]
 Output: 0
 Explanation: There is no way to make a positive profit, so we never buy the stock to achieve the maximum profit of 0.
 """
+from typing import List
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        profit = 0
+        buy_price = 0
+        sell_price = 0
+        pointer = 0
+        n = len(prices) - 1
+        
+        while pointer < n:
+            while pointer < n and prices[pointer + 1] <= prices[pointer]:
+                pointer += 1
+                
+            buy_price = prices[pointer]
+            
+            while pointer < n and prices[pointer + 1] > prices[pointer]:
+                pointer += 1
+                
+            sell_price = prices[pointer]
+            
+            profit += sell_price - buy_price
+            
+        return profit
+            
+s = Solution()
+print(s.maxProfit([7,6,4,3,1])) # 0
+print(s.maxProfit([1,2,3,4,5])) # 4
