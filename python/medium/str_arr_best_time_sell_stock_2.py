@@ -51,6 +51,16 @@ class Solution:
             
         return profit
             
+    def maxProfit(self, prices: List[int]) -> int:
+        profit = 0
+        pointer = 1
+        n = len(prices)
+        
+        while pointer < n:
+            profit += max(prices[pointer] - prices[pointer - 1], 0)
+            pointer += 1
+            
+        return profit
 s = Solution()
 print(s.maxProfit([7,6,4,3,1])) # 0
 print(s.maxProfit([1,2,3,4,5])) # 4
