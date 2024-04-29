@@ -61,6 +61,7 @@ class Solution:
             pointer += 1
             
         return profit
+
 s = Solution()
 print(s.maxProfit([7,6,4,3,1])) # 0
 print(s.maxProfit([1,2,3,4,5])) # 4
