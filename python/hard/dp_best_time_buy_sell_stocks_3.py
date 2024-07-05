@@ -50,8 +50,6 @@ class Solution:
                 
             sell_price = prices[pointer]
             
-            print(buy_price, sell_price, -(sell_price - buy_price))
-            
             heapq.heappush(profits, -(sell_price - buy_price))
             
         if len(profits) == 1:
